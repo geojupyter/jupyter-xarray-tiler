@@ -1,0 +1,14 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+_commit: v4.4.0
+_src_path: https://github.com/jupyterlab/extension-template
+author_email: geojupyter@gmail.com
+author_name: GeoJupyter Community
+has_binder: false
+has_settings: false
+kind: frontend-and-server
+labextension_name: jupyter-server-titiler
+project_short_description: A Jupyter server extension providing a TiTiler server.
+python_name: jupyter_server_titiler
+repository: https://github.com/geojupyter/jupyter-server-titiler
+test: true
+
