@@ -25,6 +25,9 @@ classifiers = [
 dependencies = [
     "jupyter_server>=2.4.0,<3",
     "titiler",
+    "uvicorn",
+    "rioxarray",
+    "geopandas",
 ]
 dynamic = ["version", "description", "authors", "urls", "keywords"]
 
