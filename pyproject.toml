@@ -91,3 +91,8 @@ before-build-python = ["jlpm clean:all"]
 
 [tool.check-wheel-contents]
 ignore = ["W002"]
+
+[dependency-groups]
+dev = [
+    "jupyterlab>=4.5.1",
+]
