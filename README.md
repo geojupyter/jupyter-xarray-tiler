@@ -9,6 +9,9 @@
 A Jupyter extension which provides a barebones read-only GIS experience from Xarray and 
 GeoPandas objects in a widget.
 
+Inspired by [jupytergis-tiler](https://github.com/geojupyter/jupytergis-tiler) by
+[David Brochart](https://github.com/davidbrochart).
+
 Goals:
 
 * Serve users' simplest reasons for leaving JupyterLab for QGIS to make a cloud-only
