@@ -140,7 +140,7 @@ class TiTilerServer:
             reader_dependency=DefaultDependency,
             process_dependency=algorithms.dependency,
         )
-        self._tile_server_app.include_router(tiler.router, prefix=f"/{source_id}")
+        self._app.include_router(tiler.router, prefix=f"/{source_id}")
 
 
 # def explore(*args: list[DataArray | Dataset | GeoDataFrame]):
