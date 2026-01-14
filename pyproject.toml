@@ -35,6 +35,7 @@ dependencies = [
 [dependency-groups]
 dev = [
     "jupyterlab>=4.5.1",
+    "mypy>=1.19.1",
 ]
 test = [
     "coverage",
@@ -94,3 +95,19 @@ before-build-python = ["jlpm clean:all"]
 
 [tool.check-wheel-contents]
 ignore = ["W002"]
+
+[tool.mypy]
+packages = ["jupyter_server_titiler"]
+python_version = "3.12"
+warn_unused_configs = true
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = [
+    "rioxarray.*",
+    "anycorn.*",
+    "rio_tiler.*",
+    "titiler.*",
+    "geopandas.*",
+]
+ignore_missing_imports = true
