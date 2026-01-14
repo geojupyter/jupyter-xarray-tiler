@@ -10,6 +10,7 @@ except ImportError:
     # in editable mode with pip. It is highly recommended to install
     # the package from a stable release or in editable mode: https://pip.pypa.io/en/stable/topics/local-project-installs/#editable-installs
     import warnings
+
     warnings.warn(f"Importing '{SERVER_EXTENSION_NAME}' outside a proper installation.")
     __version__ = "dev"
 
@@ -17,16 +18,20 @@ from jupyter_server_titiler.routes import setup_routes
 
 
 def _jupyter_labextension_paths():
-    return [{
-        "src": "labextension",
-        "dest": LAB_EXTENSION_NAME,
-    }]
+    return [
+        {
+            "src": "labextension",
+            "dest": LAB_EXTENSION_NAME,
+        }
+    ]
 
 
 def _jupyter_server_extension_points():
-    return [{
-        "module": SERVER_EXTENSION_NAME,
-    }]
+    return [
+        {
+            "module": SERVER_EXTENSION_NAME,
+        }
+    ]
 
 
 def _load_jupyter_server_extension(server_app):

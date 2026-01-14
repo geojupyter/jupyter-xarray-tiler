@@ -11,4 +11,3 @@ project_short_description: A Jupyter server extension providing a TiTiler server
 python_name: jupyter_server_titiler
 repository: https://github.com/geojupyter/jupyter-server-titiler
 test: true
-
