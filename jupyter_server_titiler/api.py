@@ -168,10 +168,3 @@ class TiTilerServer:
 #     # TODO: What if there are multiple widgets?
 #     # TODO: Clean up when widgets clean up
 #     raise NotImplementedError("Only xarray.Dataset and xarray.DataArray are supported for now.")
-#
-#
-# def test() -> Dataset | DataArray:
-#     ds = rioxarray.open_rasterio(
-#         "https://s2downloads.eox.at/demo/EOxCloudless/2020/rgbnir/s2cloudless2020-16bits_sinlge-file_z0-4.tif"
-#     )
-#     return explore(ds)
