@@ -34,10 +34,9 @@ class TiTilerRouteHandler(APIHandler):
 
 def setup_routes(web_app):
     host_pattern = ".*$"
-
     base_url = web_app.settings["base_url"]
 
     titiler_route_pattern = url_path_join(base_url, ENDPOINT_BASE, "(.*)")
-
     routes = [(titiler_route_pattern, TiTilerRouteHandler)]
+
     web_app.add_handlers(host_pattern, routes)
