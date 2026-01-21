@@ -19,7 +19,6 @@ repos:
       - id: debug-statements
       - id: check-builtin-literals
       - id: trailing-whitespace
-        exclude: .bumpversion.cfg
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.14.10
