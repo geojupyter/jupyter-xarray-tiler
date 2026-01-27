@@ -1,6 +1,7 @@
 import httpx
 import tornado
 from jupyter_server.base.handlers import APIHandler
+from jupyter_server.serverapp import ServerWebApplication
 from jupyter_server.utils import url_path_join
 
 from jupyter_server_titiler.api import TiTilerServer
@@ -18,7 +19,7 @@ class TiTilerRouteHandler(APIHandler):
     """
 
     @tornado.web.authenticated
-    async def get(self, path: str):
+    async def get(self, path: str) -> None:
         params = {key: val[0].decode() for key, val in self.request.arguments.items()}
 
         server = TiTilerServer()
@@ -38,7 +39,7 @@ class TiTilerRouteHandler(APIHandler):
             await self.flush()
 
 
-def setup_routes(web_app):
+def setup_routes(web_app: ServerWebApplication) -> None:
     host_pattern = ".*$"
     base_url = web_app.settings["base_url"]
 

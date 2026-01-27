@@ -1,3 +1,5 @@
+from jupyter_server.serverapp import ServerApp
+
 from jupyter_server_titiler.api import explore
 from jupyter_server_titiler.constants import (
     LAB_EXTENSION_NAME,
@@ -20,7 +22,7 @@ except ImportError:
     __version__ = "dev"
 
 
-def _jupyter_labextension_paths():
+def _jupyter_labextension_paths() -> list[dict[str, str]]:
     return [
         {
             "src": "labextension",
@@ -29,7 +31,7 @@ def _jupyter_labextension_paths():
     ]
 
 
-def _jupyter_server_extension_points():
+def _jupyter_server_extension_points() -> list[dict[str, str]]:
     return [
         {
             "module": SERVER_EXTENSION_NAME,
@@ -37,13 +39,13 @@ def _jupyter_server_extension_points():
     ]
 
 
-def _load_jupyter_server_extension(server_app):
+def _load_jupyter_server_extension(server_app: ServerApp) -> None:
     """Registers the API routes to receive HTTP requests from the frontend extension.
 
     Parameters
     ----------
-    server_app: jupyterlab.labapp.LabApp
-        JupyterLab application instance
+    server_app: Jupyter server application instance
+
     """
     setup_routes(server_app.web_app)
     server_app.log.info(f"Registered '{SERVER_EXTENSION_NAME}' server extension")
