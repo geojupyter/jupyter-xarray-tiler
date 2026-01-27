@@ -41,6 +41,11 @@ class TiTilerServer:
         self._tile_server_shutdown = Event()
         self._tile_server_lock = Lock()
 
+    @classmethod
+    def reset(cls):
+        del cls._instance
+        cls._instance = None
+
     @property
     def routes(self) -> list[dict[str, Any]]:
         return [{"path": route.path, "name": route.name} for route in self._app.routes]
