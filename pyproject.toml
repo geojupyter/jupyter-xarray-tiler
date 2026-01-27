@@ -120,4 +120,23 @@ module = [
 ignore_missing_imports = true
 
 [tool.ruff.lint]
-extend-select = ["I"]
+select = ["ALL"]
+ignore = [
+  "ANN002",  # Require type annotation for *args
+  "ANN003",  # Require type annotation for **kwargs
+  "D",       # Require docstrings (TODO: Enable)
+  "EM102",   # Forbid f-strings in exception messages
+  "FIX",     # FIXME, TODO, etc. comments
+  "G004",    # Forbid f-strings in log messages
+  "INP",     # Forbid implicit namespace packages
+  "TD",      # Require standards for TODO comments
+  "TRY003",  # Forbid "long" exception messages
+]
+
+[tool.ruff.lint.per-file-ignores]
+"{conftest.py,**/tests/**/*.py}" = [
+  "ANN001",  # Require type annotations for args (e.g. test fixtures)
+  "ANN201",  # Require type annotation for return
+  "ARG001",  # Forbid unused function arguments (e.g. test fixtures)
+  "S101",    # Forbid assertion statements
+]
