@@ -125,6 +125,7 @@ ignore = [
   "ANN002",  # Require type annotation for *args
   "ANN003",  # Require type annotation for **kwargs
   "D",       # Require docstrings (TODO: Enable)
+  "EM101",   # Forbit litereal strings in exception messages
   "EM102",   # Forbid f-strings in exception messages
   "FIX",     # FIXME, TODO, etc. comments
   "G004",    # Forbid f-strings in log messages
