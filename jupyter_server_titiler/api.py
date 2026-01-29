@@ -1,6 +1,6 @@
 from xarray import DataArray
 
-from jupyter_server_titiler.server import TiTilerServer
+from jupyter_server_titiler.titiler import TiTilerServer
 
 
 # async def explore(*args: list[DataArray | Dataset]):

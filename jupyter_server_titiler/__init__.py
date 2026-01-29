@@ -7,7 +7,7 @@ from jupyter_server_titiler.constants import (
     LAB_EXTENSION_NAME,
     SERVER_EXTENSION_NAME,
 )
-from jupyter_server_titiler.server import TiTilerServer
+from jupyter_server_titiler.titiler import TiTilerServer
 
 __all__ = ["TiTilerServer", "explore"]
 
