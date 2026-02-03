@@ -98,7 +98,7 @@ pixi add jupyter-xarray-tiler
 ```
 
 For other methods of installation, including pip, conda, mamba, and micromamba, see the
-[installation instructions in the documentation](https://jupyter-xarray-tiler.readthedocs.io/user-guide/install/).
+[installation instructions in the documentation](https://jupyter-xarray-tiler.readthedocs.io/en/latest/user-guide/install/).
 
 ### From source
 
@@ -106,10 +106,10 @@ For other methods of installation, including pip, conda, mamba, and micromamba, 
 uv add git+https://github.com/geojupyter/jupyter-xarray-tiler.git#egg=jupyter-xarray-tiler
 ```
 
-If you prefer to install from a local clone of the source, view the
-[Contributor Guide in our documentation](https://jupyter-xarray-tiler.readthedocs.io/contributor-guide)!
+For _development_ instructions, please view the
+[development install instructions in our documentation's Contributor Guide](https://jupyter-xarray-tiler.readthedocs.io/en/latest/contributor-guide/how-tos/development-install/)!
 
 ## Contributing
 
-See the
-[Contributor Guide in our documentation](https://jupyter-xarray-tiler.readthedocs.io/contributor-guide)!
+Please see the
+[Contributor Guide in our documentation](https://jupyter-xarray-tiler.readthedocs.io/en/latest/contributor-guide/)!
