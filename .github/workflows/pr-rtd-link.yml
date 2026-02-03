@@ -19,8 +19,6 @@ jobs:
       - uses: "readthedocs/actions/preview@v1"
         with:
           project-slug: "jupyter-xarray-titiler"
-          single-version: true
-          single-language: true
           message-template: |
             ---
             :mag: Docs preview: {docs-pr-index-url}
