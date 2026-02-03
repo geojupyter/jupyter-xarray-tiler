@@ -55,7 +55,7 @@ Your feedback and contributions are welcome!
 Please open an issue, DM Matt Fisher, or post in the `#geojupyter` channel on the [Jupyter Zulip](https://jupyter.zulipchat.com)!
 :::
 
-## :rocket: Powered by...
+## 🚀 Powered by...
 
 [TiTiler (Development Seed)](https://developmentseed.org/titiler/)
 
@@ -63,7 +63,7 @@ Other backends (e.g.
 [xpublish-tiles (earthmover)](https://github.com/earth-mover/xpublish-tiles)) may be
 supported in the future!
 
-## :sparkles: Inspired by...
+## ✨ Inspired by...
 
 [jupytergis-tiler](https://github.com/geojupyter/jupytergis-tiler) by
 [David Brochart](https://github.com/davidbrochart)
