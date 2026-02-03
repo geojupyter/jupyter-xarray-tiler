@@ -4,8 +4,11 @@
 
 > [!IMPORTANT]
 > This repository is experimental and in the prototype stage.
-> Expect nothing to work.
-> Expect the name to change in the future.
+> Expect bugs.
+> Expect a possible pivot and/or name change in the future :smile:
+>
+> Your feedback and contributions are welcome!
+> Please open an issue, DM Matt Fisher, or post in the `#geojupyter` channel on the [Jupyter Zulip](https://jupyter.zulipchat.com)!
 
 A Jupyter server extension which provides an API to launch a server to dynamically tile
 [Xarray DataArray](https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html)s
