@@ -49,19 +49,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Install Python
-      uses: actions/setup-python@v5
+    - name: Install uv
+      uses: astral-sh/setup-uv@v7
       with:
         python-version: '3.12'
-        architecture: 'x64'
+
     - uses: actions/download-artifact@v4
       with:
         name: extension-artifacts
-    - name: Install and Test
+
+    - name: Install from wheel
+      run: uv pip install "jupyterlab>=4.0.0,<5" jupyter_xarray_tiler*.whl
+
+    - name: Check the server extension is installed
       run: |
         set -eux
 
-        pip install "jupyterlab>=4.0.0,<5" jupyter_xarray_tiler*.whl
-
-        jupyter server extension list
-        jupyter server extension list 2>&1 | grep -ie "jupyter_xarray_tiler.*OK"
+        uv run jupyter server extension list
+        uv run jupyter server extension list 2>&1 | grep -ie "jupyter_xarray_tiler.*OK"
