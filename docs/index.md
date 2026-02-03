@@ -49,7 +49,7 @@ and [quickstart instructions](/user-guide/quickstart)!
 :::{warning}
 This repository is experimental and in the prototype stage.
 Expect bugs.
-Expect a possible pivot and/or name change in the future :smile:
+Expect a possible pivot and/or name change in the future 😄
 
 Your feedback and contributions are welcome!
 Please open an issue, DM Matt Fisher, or post in the `#geojupyter` channel on the [Jupyter Zulip](https://jupyter.zulipchat.com)!
