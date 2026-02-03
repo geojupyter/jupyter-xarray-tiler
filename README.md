@@ -81,13 +81,6 @@ class MyMapLibrary:
 
 ## Install
 
-### Requirements
-
-- JupyterLab >= 4.0.0
-
-
-### From PyPI
-
 > [!WARNING]
 > This method of installation doesn't work yet.
 > Install from source or see the [contributing instuctions](CONTRIBUTING.md) for now.
@@ -101,67 +94,22 @@ uv add jupyter-xarray-tiler
 Or:
 
 ```bash
-pip install jupyter-xarray-tiler
-```
-
-### From Conda Forge
-
-> [!WARNING]
-> This method of installation doesn't work yet.
-> Install from source or see the [contributing instuctions](CONTRIBUTING.md) for now.
-
-Recommended:
-
-```bash
 pixi add jupyter-xarray-tiler
 ```
 
-Or:
-
-```bash
-conda install jupyter-xarray-tiler
-```
+For other methods of installation, including pip, conda, mamba, and micromamba, see the
+[installation instructions in the documentation](https://jupyter-xarray-tiler.readthedocs.io/user-guide/install/).
 
 ### From source
-
-Recommended:
 
 ```bash
 uv add git+https://github.com/geojupyter/jupyter-xarray-tiler.git#egg=jupyter-xarray-tiler
 ```
 
-Or:
-
-```bash
-pip install git+https://github.com/geojupyter/jupyter-xarray-tiler.git#egg=jupyter-xarray-tiler
-```
-
-If you prefer to install from a local clone, view the [contributing instuctions](CONTRIBUTING.md).
-
-## Uninstall
-
-```bash
-uv remove jupyter-xarray-tiler
-```
-
-Or:
-
-```bash
-pip uninstall jupyter-xarray-tiler
-```
-
-Or:
-
-```bash
-pixi remove jupyter-xarray-tiler
-```
-
-Or:
-
-```bash
-conda uninstall jupyter-xarray-tiler
-```
+If you prefer to install from a local clone of the source, view the
+[Contributor Guide in our documentation](https://jupyter-xarray-tiler.readthedocs.io/contributor-guide)!
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md)
+See the
+[Contributor Guide in our documentation](https://jupyter-xarray-tiler.readthedocs.io/contributor-guide)!

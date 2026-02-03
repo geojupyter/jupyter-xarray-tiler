@@ -56,6 +56,12 @@ test = [
     "pytest-cov",
     "pytest-jupyter[server]>=0.6.0",
 ]
+docs = [
+    "myst-parser>=5.0.0",
+    "pydata-sphinx-theme==0.16.0",  # See: https://github.com/pydata/pydata-sphinx-theme/issues/2090
+    "sphinx>=8.2.3,<9",  # sphinx-tabs not compatible with Sphinx 9
+    "sphinx-tabs>=3.4.7",
+]
 play = [
     "leafmap",
     "odc-stac",
