@@ -22,7 +22,7 @@ jobs:
       uses: astral-sh/setup-uv@v7
 
     - name: Install dependencies
-      run: uv sync --group dev
+      run: uv sync --group dev --group test
 
     - name: Check the server extension is installed
       run: |
