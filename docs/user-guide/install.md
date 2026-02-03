@@ -9,11 +9,6 @@ If you're using it with JupyterLab, it requires JupyterLab >= 4.0.0
 
 ## From PyPI
 
-:::{warning}
-This method of installation doesn't work yet.
-Install from source or see the [contributing instuctions](/contributor-guide/index.md) for now.
-:::
-
 `````````{tabs}
 ``````{group-tab} uv (recommended)
 ```bash
