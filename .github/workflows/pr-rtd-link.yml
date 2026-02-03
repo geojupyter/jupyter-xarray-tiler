@@ -18,7 +18,7 @@ jobs:
     steps:
       - uses: "readthedocs/actions/preview@v1"
         with:
-          project-slug: "jupyter-xarray-titiler"
+          project-slug: "jupyter-xarray-tiler"
           message-template: |
             ---
             :mag: Docs preview: {docs-pr-index-url}
