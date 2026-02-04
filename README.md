@@ -1,5 +1,6 @@
 # Jupyter Xarray Tiler
 
+[![ReadTheDocs Status](https://readthedocs.org/projects/jupyter-xarray-tiler/badge/?version=latest)](https://jupyter-xarray-tiler.readthedocs.io)
 [![Github Actions Status - Build](https://github.com/geojupyter/jupyter-xarray-tiler/workflows/Build/badge.svg)](https://github.com/geojupyter/jupyter-xarray-tiler/actions/workflows/build.yml)
 [![Github Actions Status - Typecheck](https://github.com/geojupyter/jupyter-xarray-tiler/workflows/Typecheck/badge.svg)](https://github.com/geojupyter/jupyter-xarray-tiler/actions/workflows/typecheck.yml)
 
