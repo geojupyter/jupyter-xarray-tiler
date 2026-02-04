@@ -1,6 +1,7 @@
 # Jupyter Xarray Tiler
 
 [![Github Actions Status - Build](https://github.com/geojupyter/jupyter-xarray-tiler/workflows/Build/badge.svg)](https://github.com/geojupyter/jupyter-xarray-tiler/actions/workflows/build.yml)
+[![Github Actions Status - Typecheck](https://github.com/geojupyter/jupyter-xarray-tiler/workflows/Typecheck/badge.svg)](https://github.com/geojupyter/jupyter-xarray-tiler/actions/workflows/typecheck.yml)
 
 > [!IMPORTANT]
 > This repository is experimental and in the prototype stage.
