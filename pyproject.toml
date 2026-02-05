@@ -31,12 +31,13 @@ dynamic = ["version"]
 dependencies = [
     "jupyter_server>=2.4.0,<3",
     "jupyter-server-proxy",
-    "titiler",
     "anyio",
     "anycorn",
     "rioxarray",
     "geopandas",
     "httpx>=0.28.1",
+    "titiler-core>=1.1.1",
+    "titiler-xarray>=1.1.1",
 ]
 
 [project.urls]
