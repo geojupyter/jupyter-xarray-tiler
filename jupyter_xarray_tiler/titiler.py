@@ -12,6 +12,7 @@ from rio_tiler.io.xarray import XarrayReader
 from titiler.core.algorithm import BaseAlgorithm
 from titiler.core.algorithm import algorithms as default_algorithms
 from titiler.core.dependencies import DefaultDependency
+from titiler.core.errors import DEFAULT_STATUS_CODES, add_exception_handlers
 from titiler.core.factory import TilerFactory
 from xarray import DataArray
 
@@ -112,6 +113,7 @@ class TiTilerServer:
             docs_url=None,
             redoc_url=None,
         )
+        add_exception_handlers(self._app, DEFAULT_STATUS_CODES)
 
         config = Config()
         config.bind = "127.0.0.1:0"
