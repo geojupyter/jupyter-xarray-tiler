@@ -10,6 +10,8 @@ contributor-guide/index
 
 Thank you for trying out `jupyter-xarray-tiler`!
 
+![High-level diagram of `jupyter-xarray-tiler`](/assets/images/high-level-diagram.svg)
+
 ## Who is this for?
 
 Intended to be consumed by interactive map libraries for Jupyter, **not end-users**,
