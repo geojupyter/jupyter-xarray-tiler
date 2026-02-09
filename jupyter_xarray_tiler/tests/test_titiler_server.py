@@ -5,7 +5,7 @@ import pytest
 import pytest_asyncio
 from xarray import DataArray
 
-from jupyter_xarray_tiler.titiler import TiTilerServer
+from jupyter_xarray_tiler.titiler._singleton import TiTilerServer
 
 
 @pytest_asyncio.fixture
