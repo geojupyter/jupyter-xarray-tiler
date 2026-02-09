@@ -63,8 +63,8 @@ docs = [
     "sphinx>=8.2.3,<9",  # sphinx-tabs not compatible with Sphinx 9
     "sphinx-tabs>=3.4.7",
 ]
-# Dependencies for playing with the extension with real data, e.g. in the test
-# notebook `test.ipynb`:
+# Dependencies for playing with the extension with real data, e.g. test
+# notebooks in the `examples` directory:
 play = [
     "leafmap",
     "mapclassify",

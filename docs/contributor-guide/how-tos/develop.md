@@ -17,5 +17,5 @@ JupyterLab.
 Depending on what you've changed, you may need to restart the server (CTRL+C and start
 JupyterLab again), or restart the kernel in the JupyterLab UI.
 
-You can use `test.ipynb` as a starting point for interactively testing your development
-build.
+You can use notebooks in the `examples/` directory as a starting point for interactively
+testing your development build.
