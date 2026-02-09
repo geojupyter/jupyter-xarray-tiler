@@ -7,7 +7,7 @@ Then, install the package in development mode.
 Recommended:
 
 ```bash
-uv sync --group dev --group test
+uv sync --all-groups
 ```
 
 For simplicity, the following instructions will be written for `uv` users.
