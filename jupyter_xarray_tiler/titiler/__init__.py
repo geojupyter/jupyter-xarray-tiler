@@ -9,8 +9,8 @@ from anyio import connect_tcp, create_task_group
 from fastapi import FastAPI
 from fastapi.routing import APIRoute
 from rio_tiler.io.xarray import XarrayReader
-from titiler.core.algorithm import BaseAlgorithm
 from titiler.core.algorithm import algorithms as default_algorithms
+from titiler.core.algorithm.base import BaseAlgorithm
 from titiler.core.dependencies import DefaultDependency
 from titiler.core.errors import DEFAULT_STATUS_CODES, add_exception_handlers
 from titiler.core.factory import TilerFactory
