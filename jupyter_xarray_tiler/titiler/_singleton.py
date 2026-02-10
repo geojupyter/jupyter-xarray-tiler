@@ -90,7 +90,11 @@ class TiTilerServer:
             _params["algorithm"] = "algorithm"
         source_id = str(uuid.uuid4())
 
-        self._include_tile_server_router(source_id, data_array, algorithm)
+        self._include_tile_server_router(
+            source_id=source_id,
+            data_array=data_array,
+            algorithm=algorithm,
+        )
 
         return (
             f"/proxy/{self._port}/{source_id}/tiles/WebMercatorQuad/"
@@ -139,6 +143,7 @@ class TiTilerServer:
 
     def _include_tile_server_router(
         self,
+        *,
         source_id: str,
         data_array: DataArray,
         algorithm: BaseAlgorithm | None = None,
