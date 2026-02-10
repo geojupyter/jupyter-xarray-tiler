@@ -31,6 +31,8 @@ async def add_data_array(
     :param scale: Tile size scale. Default 1 corresponds to 256*256px tiles.
     :param algorithm: Custom TiTiler algorithm name, e.g. "hillshade".
     :param kwargs: Additional query parameters to include in the TiTiler request URL.
+
+    :returns: A URL pointing to the new tile endpoint.
     """
     return await _get_server().add_data_array(
         data_array,
