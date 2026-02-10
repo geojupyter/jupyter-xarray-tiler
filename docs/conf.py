@@ -28,6 +28,7 @@ nitpick_ignore = [
 
 extensions = [
     "sphinx.ext.autodoc",  # Generate docs from docstrings
+    "sphinx_autodoc_typehints",  # Generate docs from typehints
     "sphinx.ext.intersphinx",  # Link to other projects' docs
     "sphinx.ext.napoleon",  # Support Google-style docstrings
     "sphinx.ext.viewcode",  # Add links to source code
