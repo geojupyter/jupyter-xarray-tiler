@@ -45,6 +45,7 @@ intersphinx_mapping = {
 napoleon_google_docstring = True
 napoleon_numpy_docstring = False
 napoleon_include_init_with_doc = False
+typehints_defaults = "comma"
 
 myst_enable_extensions = [
     "colon_fence",
