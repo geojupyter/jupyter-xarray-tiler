@@ -113,6 +113,7 @@ select = ["ALL"]
 ignore = [
   "ANN002",  # Require type annotation for *args
   "ANN003",  # Require type annotation for **kwargs
+  "COM812",  # Require trailing commas (the Ruff formatter does this)
   "D",       # Require docstrings (TODO: Enable)
   "EM101",   # Forbit litereal strings in exception messages
   "EM102",   # Forbid f-strings in exception messages
