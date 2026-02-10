@@ -37,6 +37,7 @@ extensions = [
 ]
 
 intersphinx_mapping = {
+    "python": ("https://docs.python.org/3/", None),
     "titiler": ("https://developmentseed.org/titiler/", None),
     "xarray": ("https://docs.xarray.dev/en/stable/", None),
 }
