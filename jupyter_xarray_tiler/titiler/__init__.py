@@ -1,4 +1,5 @@
 from functools import cache
+from typing import Any
 
 from titiler.core.algorithm.base import BaseAlgorithm
 from xarray import DataArray
@@ -32,3 +33,7 @@ async def add_data_array(
         algorithm=algorithm,
         **kwargs,
     )
+
+
+def get_routes() -> list[dict[str, Any]]:
+    return _get_server().routes

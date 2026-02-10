@@ -1,9 +1,9 @@
 from jupyter_server.serverapp import ServerApp
 
 from jupyter_xarray_tiler.constants import SERVER_EXTENSION_NAME
-from jupyter_xarray_tiler.titiler import add_data_array
+from jupyter_xarray_tiler.titiler import add_data_array, get_routes
 
-__all__ = ["add_data_array"]
+__all__ = ["add_data_array", "get_routes"]
 
 try:
     from jupyter_xarray_tiler._version import __version__
