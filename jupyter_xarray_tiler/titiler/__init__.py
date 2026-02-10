@@ -38,7 +38,7 @@ class TiTilerServer:
         if hasattr(self, "_tile_server_task"):
             return
 
-        self._tile_server_task: Task | None = None
+        self._tile_server_task: Task[None] | None = None
         self._tile_server_started = Event()
         self._tile_server_shutdown = Event()
         self._tile_server_lock = Lock()
@@ -78,7 +78,7 @@ class TiTilerServer:
         rescale: tuple[float, float] | None = None,
         scale: int = 1,
         algorithm: BaseAlgorithm | None = None,
-        **params,
+        **kwargs: str | int,
     ) -> str:
         await self.start_tile_server()
 
@@ -86,7 +86,7 @@ class TiTilerServer:
             "scale": str(scale),
             "colormap_name": colormap_name,
             "reproject": "max",
-            **params,
+            **kwargs,
         }
         if rescale is not None:
             _params["rescale"] = f"{rescale[0]},{rescale[1]}"
