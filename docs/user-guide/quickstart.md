@@ -5,7 +5,7 @@ As an author of a an interactive map library for Jupyter, you might use
 DataArrays without writing to a file like so:
 
 ```python
-from jupyter_xarray_tiler import add_data_array
+from jupyter_xarray_tiler.titiler import add_data_array
 
 
 class MyMapLibrary:

@@ -55,7 +55,7 @@ to map servers running in the kernel.
 As a Jupyter interactive map library author, you may implement a method like:
 
 ```python
-from jupyter_xarray_tiler import add_data_array
+from jupyter_xarray_tiler.titiler import add_data_array
 
 
 class MyMapLibrary:
