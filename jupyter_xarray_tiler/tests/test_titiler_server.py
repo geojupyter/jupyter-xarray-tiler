@@ -1,13 +1,15 @@
+from collections.abc import AsyncGenerator
+
 import numpy as np
 import pytest
 import pytest_asyncio
-import xarray as xr
+from xarray import DataArray
 
 from jupyter_xarray_tiler.titiler import TiTilerServer
 
 
 @pytest_asyncio.fixture
-async def titiler_server():
+async def titiler_server() -> AsyncGenerator[TiTilerServer]:
     server = TiTilerServer()
     await server.start_tile_server()
     yield server
@@ -16,10 +18,10 @@ async def titiler_server():
 
 
 @pytest.fixture
-def random_data_array():
+def random_data_array() -> DataArray:
     data = np.random.default_rng().random((100, 100))
 
-    return xr.DataArray(
+    return DataArray(
         data,
         dims=["y", "x"],
         coords={
@@ -31,14 +33,14 @@ def random_data_array():
 
 
 @pytest.mark.asyncio
-async def test_server_is_singleton():
+async def test_server_is_singleton() -> None:
     """Test that TiTilerServer is a singleton."""
     assert TiTilerServer() is TiTilerServer()
     await TiTilerServer._reset()
 
 
 @pytest.mark.asyncio
-async def test_server_singleton_cleanup():
+async def test_server_singleton_cleanup() -> None:
     a = TiTilerServer()
     id_a = id(a)
     await TiTilerServer._reset()
@@ -50,13 +52,15 @@ async def test_server_singleton_cleanup():
 
 
 @pytest.mark.asyncio
-async def test_add_data_array_creates_api_routes(titiler_server, random_data_array):
+async def test_add_data_array_creates_api_routes(
+    titiler_server: TiTilerServer,
+    random_data_array: DataArray,
+) -> None:
     """Test that FastAPI routes are created when a data array is added to the server."""
     assert len(titiler_server.routes) == 0
 
     await titiler_server.add_data_array(
         data_array=random_data_array,
-        name="test_layer",
         colormap_name="viridis",
     )
 
@@ -64,11 +68,13 @@ async def test_add_data_array_creates_api_routes(titiler_server, random_data_arr
 
 
 @pytest.mark.asyncio
-async def test_add_data_array_returns_valid_tile_url(titiler_server, random_data_array):
+async def test_add_data_array_returns_valid_tile_url(
+    titiler_server: TiTilerServer,
+    random_data_array: DataArray,
+) -> None:
     """Test that adding a DataArray returns a properly formatted tile URL."""
     tile_url = await titiler_server.add_data_array(
         data_array=random_data_array,
-        name="test_layer",
         colormap_name="viridis",
     )
 

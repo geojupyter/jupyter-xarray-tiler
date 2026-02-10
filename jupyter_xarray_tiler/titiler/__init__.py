@@ -9,8 +9,8 @@ from anyio import connect_tcp, create_task_group
 from fastapi import FastAPI
 from fastapi.routing import APIRoute
 from rio_tiler.io.xarray import XarrayReader
-from titiler.core.algorithm import BaseAlgorithm
 from titiler.core.algorithm import algorithms as default_algorithms
+from titiler.core.algorithm.base import BaseAlgorithm
 from titiler.core.dependencies import DefaultDependency
 from titiler.core.errors import DEFAULT_STATUS_CODES, add_exception_handlers
 from titiler.core.factory import TilerFactory
@@ -34,12 +34,11 @@ class TiTilerServer:
             cls._instance = super().__new__(cls)
         return cls._instance
 
-    def __init__(self, *args, **kwargs) -> None:
+    def __init__(self) -> None:
         if hasattr(self, "_tile_server_task"):
             return
 
-        super().__init__(*args, **kwargs)
-        self._tile_server_task: Task | None = None
+        self._tile_server_task: Task[None] | None = None
         self._tile_server_started = Event()
         self._tile_server_shutdown = Event()
         self._tile_server_lock = Lock()
@@ -79,7 +78,7 @@ class TiTilerServer:
         rescale: tuple[float, float] | None = None,
         scale: int = 1,
         algorithm: BaseAlgorithm | None = None,
-        **params,
+        **kwargs: str | int,
     ) -> str:
         await self.start_tile_server()
 
@@ -87,7 +86,7 @@ class TiTilerServer:
             "scale": str(scale),
             "colormap_name": colormap_name,
             "reproject": "max",
-            **params,
+            **kwargs,
         }
         if rescale is not None:
             _params["rescale"] = f"{rescale[0]},{rescale[1]}"

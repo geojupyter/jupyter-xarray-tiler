@@ -95,8 +95,8 @@ ignore = ["W002"]
 [tool.mypy]
 packages = ["jupyter_xarray_tiler"]
 python_version = "3.12"
-warn_unused_configs = true
-ignore_missing_imports = true
+strict = true
+
 
 [[tool.mypy.overrides]]
 module = [
