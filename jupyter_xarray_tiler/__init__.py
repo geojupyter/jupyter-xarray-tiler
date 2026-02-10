@@ -1,9 +1,6 @@
 from jupyter_server.serverapp import ServerApp
 
 from jupyter_xarray_tiler.constants import SERVER_EXTENSION_NAME
-from jupyter_xarray_tiler.titiler import TiTilerServer
-
-__all__ = ["TiTilerServer"]
 
 try:
     from jupyter_xarray_tiler._version import __version__

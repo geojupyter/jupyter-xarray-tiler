@@ -28,21 +28,13 @@ nitpick_ignore = [
 
 extensions = [
     "sphinx.ext.autodoc",  # Generate docs from docstrings
-    "sphinx.ext.intersphinx",  # Link to other projects' docs
     "sphinx.ext.napoleon",  # Support Google-style docstrings
+    "sphinx_autodoc_typehints",  # Generate docs from typehints
+    "sphinx.ext.intersphinx",  # Link to other projects' docs
     "sphinx.ext.viewcode",  # Add links to source code
     "sphinx_tabs.tabs",  # Support for tabbed "cards"
     "myst_parser",  # Parse Markdown files
 ]
-
-intersphinx_mapping = {
-    "titiler": ("https://developmentseed.org/titiler/", None),
-    "xarray": ("https://docs.xarray.dev/en/stable/", None),
-}
-
-napoleon_google_docstring = True
-napoleon_numpy_docstring = False
-napoleon_include_init_with_doc = False
 
 myst_enable_extensions = [
     "colon_fence",
@@ -51,6 +43,27 @@ myst_enable_extensions = [
 exclude_patterns = [
     "README.md",
 ]
+
+
+# -- Options for autodoc -----------------------------------------------------
+
+intersphinx_mapping = {
+    "python": ("https://docs.python.org/3/", None),
+    "titiler": ("https://developmentseed.org/titiler/", None),
+    "xarray": ("https://docs.xarray.dev/en/stable/", None),
+}
+
+# Support Google style docstrings, no mixing
+napoleon_google_docstring = True
+napoleon_numpy_docstring = False
+
+# Combine return description with return type
+napoleon_use_rtype = False
+typehints_use_rtype = False
+
+# Display the parameter's default value alongside the parameter's type
+typehints_defaults = "comma"
+
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
