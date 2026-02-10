@@ -24,6 +24,12 @@ async def add_data_array(
     """Adds a DataArray to the TiTiler server and returns a URL template.
 
     The TiTiler server is lazily started when the first DataArray is added.
+
+    :param colormap_name: A rio-tiler colormap name.
+    :param rescale: Comma (',') delimited Min,Max range.
+    :param scale: Tile size scale. Default 1 corresponds to 256*256px tiles.
+    :param algorithm: Custom TiTiler algorithm name, e.g. "hillshade".
+    :param kwargs: Additional query parameters to include in the TiTiler request URL.
     """
     return await _get_server().add_data_array(
         data_array,
@@ -36,4 +42,5 @@ async def add_data_array(
 
 
 def get_routes() -> list[dict[str, Any]]:
+    """Display a list of all available routes on the TiTiler server."""
     return _get_server().routes
