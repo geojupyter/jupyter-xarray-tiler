@@ -25,6 +25,7 @@ async def add_data_array(
 
     The TiTiler server is lazily started when the first DataArray is added.
 
+    :param data_array: An Xarray DataArray to dynamically tile for visualization.
     :param colormap_name: A rio-tiler colormap name.
     :param rescale: Comma (',') delimited Min,Max range.
     :param scale: Tile size scale. Default 1 corresponds to 256*256px tiles.
@@ -42,5 +43,8 @@ async def add_data_array(
 
 
 def get_routes() -> list[dict[str, Any]]:
-    """Display a list of all available routes on the TiTiler server."""
+    """Display a list of all available routes on the TiTiler server.
+
+    :returns: A list containing one dictionary per route exposed by the TiTiler server.
+    """
     return _get_server().routes
