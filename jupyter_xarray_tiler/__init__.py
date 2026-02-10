@@ -1,9 +1,9 @@
 from jupyter_server.serverapp import ServerApp
 
 from jupyter_xarray_tiler.constants import SERVER_EXTENSION_NAME
-from jupyter_xarray_tiler.titiler import TiTilerServer
+from jupyter_xarray_tiler.titiler import add_data_array
 
-__all__ = ["TiTilerServer"]
+__all__ = ["add_data_array"]
 
 try:
     from jupyter_xarray_tiler._version import __version__
