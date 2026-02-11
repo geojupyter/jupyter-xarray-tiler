@@ -51,6 +51,10 @@ def get_routes() -> list[dict[str, Any]]:
 
     Returns:
         A list containing one dictionary per route exposed by the TiTiler server.
+
+    Raises:
+        RuntimeError: If called before the server is started. Always
+        `await add_data_array(...)` first.
     """
     try:
         return _get_server().routes
