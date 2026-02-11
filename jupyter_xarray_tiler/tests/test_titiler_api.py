@@ -12,3 +12,4 @@ def test_raises_if_get_routes_before_server_started() -> None:
 def test_singleton_ish() -> None:
     """Test that the API only uses one TiTiler server instance."""
     assert id(_get_server()) == id(_get_server())
+    assert _get_server() is _get_server()

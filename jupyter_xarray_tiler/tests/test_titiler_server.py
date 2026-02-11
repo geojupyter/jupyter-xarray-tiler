@@ -12,6 +12,7 @@ async def test_server_is_not_singleton() -> None:
     Now, tests depend on being able to create a fresh instance and the end-user is
     protected from starting multiple instances in the public API.
     """
+    assert id(TiTilerServer()) != id(TiTilerServer())
     assert TiTilerServer() is not TiTilerServer()
 
 
