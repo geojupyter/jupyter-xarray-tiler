@@ -137,10 +137,10 @@ class TiTilerServer:
                 ),
             )
 
-            self._tile_server_url = binds[0]
+            # Host will always be 127.0.0.1, port is randomized
+            host, _port = binds[0][len("http://") :].split(":")
+            self._port = int(_port)
 
-            host, port = binds[0][len("http://") :].split(":")
-            self._port = int(port)
             while True:
                 try:
                     await connect_tcp(host, self._port)
