@@ -16,8 +16,11 @@ from titiler.core.errors import DEFAULT_STATUS_CODES, add_exception_handlers
 from titiler.core.factory import TilerFactory
 from xarray import DataArray
 
-_incorrect_usage_message = (
-    "If you're seeing this, you're probably 'holding it wrong'. Check out the docs!"
+_not_initialized_message = "Server not correctly initialized."
+_found_bug_message = (
+    "If you're seeing this, assuming you're not accessing a private object,"
+    " you've found a bug."
+    " Please open an issue on GitHub!"
 )
 
 
@@ -59,7 +62,9 @@ class TiTilerServer:
     def routes(self) -> list[dict[str, Any]]:
         if self._app is None:
             raise RuntimeError(
-                f"Server not correctly initialized. {_incorrect_usage_message}"
+                _not_initialized_message
+                + " If you're seeing this message, you're 'holding it wrong'."
+                " Please see the docs!"
             )
 
         return [
@@ -87,6 +92,9 @@ class TiTilerServer:
     ) -> str:
         await self.start_tile_server()
 
+        if self._port is None:
+            raise RuntimeError(f"{_not_initialized_message} {_found_bug_message}")
+
         _params = {
             "scale": str(scale),
             "colormap_name": colormap_name,
@@ -97,8 +105,8 @@ class TiTilerServer:
             _params["rescale"] = f"{rescale[0]},{rescale[1]}"
         if algorithm is not None:
             _params["algorithm"] = "algorithm"
-        source_id = str(uuid.uuid4())
 
+        source_id = str(uuid.uuid4())
         self._include_tile_server_router(
             source_id=source_id,
             data_array=data_array,
@@ -137,10 +145,11 @@ class TiTilerServer:
                 ),
             )
 
-            self._tile_server_url = binds[0]
+            # Host will always be 127.0.0.1, port is randomized
+            host, _port = binds[0][len("http://") :].split(":")
+            self._port = int(_port)
 
-            host, port = binds[0][len("http://") :].split(":")
-            self._port = int(port)
+            # Poll until the TiTiler server is accepting connections
             while True:
                 try:
                     await connect_tcp(host, self._port)
@@ -158,9 +167,7 @@ class TiTilerServer:
         algorithm: BaseAlgorithm | None = None,
     ) -> None:
         if self._app is None:
-            raise RuntimeError(
-                f"Server not correctly initialized. {_incorrect_usage_message}"
-            )
+            raise RuntimeError(f"{_not_initialized_message} {_found_bug_message}")
 
         algorithms = default_algorithms
         if algorithm is not None:
