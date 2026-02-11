@@ -5,7 +5,7 @@ import pytest
 import pytest_asyncio
 from xarray import DataArray
 
-from jupyter_xarray_tiler.titiler._singleton import TiTilerServer
+from jupyter_xarray_tiler.titiler._server import TiTilerServer
 
 
 @pytest_asyncio.fixture
@@ -14,7 +14,10 @@ async def titiler_server() -> AsyncGenerator[TiTilerServer]:
     await server.start_tile_server()
     yield server
 
-    await TiTilerServer._reset()
+    await server.stop_tile_server()
+    if server._tile_server_task:
+        await server._tile_server_task
+    del server
 
 
 @pytest.fixture
@@ -33,22 +36,14 @@ def random_data_array() -> DataArray:
 
 
 @pytest.mark.asyncio
-async def test_server_is_singleton() -> None:
-    """Test that TiTilerServer is a singleton."""
-    assert TiTilerServer() is TiTilerServer()
-    await TiTilerServer._reset()
+async def test_server_is_not_singleton() -> None:
+    """Test that TiTilerServer is not a singleton.
 
-
-@pytest.mark.asyncio
-async def test_server_singleton_cleanup() -> None:
-    a = TiTilerServer()
-    id_a = id(a)
-    await TiTilerServer._reset()
-
-    b = TiTilerServer()
-    id_b = id(b)
-
-    assert id_a != id_b
+    Previously, we used a singleton pattern for TiTiler server, but not anymore.
+    Now, tests depend on being able to create a fresh instance and the end-user is
+    protected from starting multiple instances in the public API.
+    """
+    assert TiTilerServer() is not TiTilerServer()
 
 
 @pytest.mark.asyncio

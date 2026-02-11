@@ -4,7 +4,7 @@ from typing import Any
 from titiler.core.algorithm.base import BaseAlgorithm
 from xarray import DataArray
 
-from jupyter_xarray_tiler.titiler._singleton import TiTilerServer
+from jupyter_xarray_tiler.titiler._server import TiTilerServer
 
 
 @cache
