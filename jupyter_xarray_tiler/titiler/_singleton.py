@@ -92,6 +92,9 @@ class TiTilerServer:
     ) -> str:
         await self.start_tile_server()
 
+        if self._port is None:
+            raise RuntimeError(f"{_not_initialized_message} {_found_bug_message}")
+
         _params = {
             "scale": str(scale),
             "colormap_name": colormap_name,
@@ -109,9 +112,6 @@ class TiTilerServer:
             data_array=data_array,
             algorithm=algorithm,
         )
-
-        if self._port is None:
-            raise RuntimeError(f"{_not_initialized_message} {_found_bug_message}")
 
         return (
             f"/proxy/{self._port}/{source_id}/tiles/WebMercatorQuad/"
