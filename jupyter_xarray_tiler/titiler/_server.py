@@ -1,7 +1,7 @@
 import uuid
 from asyncio import Event, Lock, Task, create_task
 from functools import partial
-from typing import Any, ClassVar, Self
+from typing import Any
 from urllib.parse import urlencode
 
 from anycorn import Config, serve
@@ -25,38 +25,20 @@ _found_bug_message = (
 
 
 class TiTilerServer:
-    """A singleton class to manage a TiTiler FastAPI server instance."""
+    """A class to manage a TiTiler FastAPI server instance.
 
-    _instance: ClassVar[Self | None] = None
-
-    def __new__(cls) -> Self:
-        if cls._instance is None:
-            cls._instance = super().__new__(cls)
-        return cls._instance
+    In practice, there should only ever be a single instance of this class.
+    But this class is not a singleton: the public API handles this under the hood via a
+    private function which holds a single instance in its cache.
+    """
 
     def __init__(self) -> None:
-        if hasattr(self, "_tile_server_task"):
-            return
-
         self._app: FastAPI | None = None
         self._port: int | None = None
         self._tile_server_task: Task[None] | None = None
         self._tile_server_started = Event()
         self._tile_server_shutdown = Event()
         self._tile_server_lock = Lock()
-
-    @classmethod
-    async def _reset(cls) -> None:
-        """Destroy the singleton instance -- for testing only."""
-        if not cls._instance:
-            raise RuntimeError(f"{cls.__name__} not initialized")
-
-        await cls._instance.stop_tile_server()
-        if cls._instance._tile_server_task:  # noqa: SLF001
-            await cls._instance._tile_server_task  # noqa: SLF001
-
-        del cls._instance
-        cls._instance = None
 
     @property
     def routes(self) -> list[dict[str, Any]]:
