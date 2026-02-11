@@ -16,6 +16,7 @@ from titiler.core.errors import DEFAULT_STATUS_CODES, add_exception_handlers
 from titiler.core.factory import TilerFactory
 from xarray import DataArray
 
+_not_initialized_message = "Server not correctly initialized."
 _found_bug_message = (
     "If you're seeing this, assuming you're not accessing a private object,"
     " you've found a bug."
@@ -61,7 +62,9 @@ class TiTilerServer:
     def routes(self) -> list[dict[str, Any]]:
         if self._app is None:
             raise RuntimeError(
-                f"Server not correctly initialized. {_found_bug_message}"
+                _not_initialized_message
+                + " If you're seeing this message, you're 'holding it wrong'."
+                " Please see the docs!"
             )
 
         return [
@@ -108,9 +111,7 @@ class TiTilerServer:
         )
 
         if self._port is None:
-            raise RuntimeError(
-                f"Server not correctly initialized. {_found_bug_message}"
-            )
+            raise RuntimeError(f"{_not_initialized_message} {_found_bug_message}")
 
         return (
             f"/proxy/{self._port}/{source_id}/tiles/WebMercatorQuad/"
@@ -165,9 +166,7 @@ class TiTilerServer:
         algorithm: BaseAlgorithm | None = None,
     ) -> None:
         if self._app is None:
-            raise RuntimeError(
-                f"Server not correctly initialized. {_found_bug_message}"
-            )
+            raise RuntimeError(f"{_not_initialized_message} {_found_bug_message}")
 
         algorithms = default_algorithms
         if algorithm is not None:
