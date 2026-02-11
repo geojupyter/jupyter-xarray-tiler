@@ -97,13 +97,18 @@ class TiTilerServer:
             _params["rescale"] = f"{rescale[0]},{rescale[1]}"
         if algorithm is not None:
             _params["algorithm"] = "algorithm"
-        source_id = str(uuid.uuid4())
 
+        source_id = str(uuid.uuid4())
         self._include_tile_server_router(
             source_id=source_id,
             data_array=data_array,
             algorithm=algorithm,
         )
+
+        if self._port is None:
+            raise RuntimeError(
+                f"Server not correctly initialized. {_incorrect_usage_message}"
+            )
 
         return (
             f"/proxy/{self._port}/{source_id}/tiles/WebMercatorQuad/"
