@@ -16,8 +16,10 @@ from titiler.core.errors import DEFAULT_STATUS_CODES, add_exception_handlers
 from titiler.core.factory import TilerFactory
 from xarray import DataArray
 
-_incorrect_usage_message = (
-    "If you're seeing this, you're probably 'holding it wrong'. Check out the docs!"
+_found_bug_message = (
+    "If you're seeing this, assuming you're not accessing a private object,"
+    " you've found a bug."
+    " Please open an issue on GitHub!"
 )
 
 
@@ -59,7 +61,7 @@ class TiTilerServer:
     def routes(self) -> list[dict[str, Any]]:
         if self._app is None:
             raise RuntimeError(
-                f"Server not correctly initialized. {_incorrect_usage_message}"
+                f"Server not correctly initialized. {_found_bug_message}"
             )
 
         return [
@@ -107,7 +109,7 @@ class TiTilerServer:
 
         if self._port is None:
             raise RuntimeError(
-                f"Server not correctly initialized. {_incorrect_usage_message}"
+                f"Server not correctly initialized. {_found_bug_message}"
             )
 
         return (
@@ -164,7 +166,7 @@ class TiTilerServer:
     ) -> None:
         if self._app is None:
             raise RuntimeError(
-                f"Server not correctly initialized. {_incorrect_usage_message}"
+                f"Server not correctly initialized. {_found_bug_message}"
             )
 
         algorithms = default_algorithms
