@@ -1,38 +1,7 @@
-from collections.abc import AsyncGenerator
-
-import numpy as np
 import pytest
-import pytest_asyncio
 from xarray import DataArray
 
 from jupyter_xarray_tiler.titiler._server import TiTilerServer
-
-
-@pytest_asyncio.fixture
-async def titiler_server() -> AsyncGenerator[TiTilerServer]:
-    server = TiTilerServer()
-    await server.start_tile_server()
-    yield server
-
-    await server.stop_tile_server()
-    if server._tile_server_task:
-        await server._tile_server_task
-    del server
-
-
-@pytest.fixture
-def random_data_array() -> DataArray:
-    data = np.random.default_rng().random((100, 100))
-
-    return DataArray(
-        data,
-        dims=["y", "x"],
-        coords={
-            "y": np.linspace(-90, 90, 100),
-            "x": np.linspace(-180, 180, 100),
-        },
-        attrs={"crs": "EPSG:4326"},
-    )
 
 
 @pytest.mark.asyncio
