@@ -1,7 +1,7 @@
 import uuid
 from asyncio import Event, Lock, Task, create_task
 from functools import partial
-from typing import Any, Self
+from typing import Any, ClassVar, Self
 from urllib.parse import urlencode
 
 from anycorn import Config, serve
@@ -16,13 +16,15 @@ from titiler.core.errors import DEFAULT_STATUS_CODES, add_exception_handlers
 from titiler.core.factory import TilerFactory
 from xarray import DataArray
 
+_incorrect_usage_message = (
+    "If you're seeing this, you're probably 'holding it wrong'. Check out the docs!"
+)
+
 
 class TiTilerServer:
     """A singleton class to manage a TiTiler FastAPI server instance."""
 
-    _instance: Self | None = None
-    _app: FastAPI
-    _port: int
+    _instance: ClassVar[Self | None] = None
 
     def __new__(cls) -> Self:
         if cls._instance is None:
@@ -33,6 +35,8 @@ class TiTilerServer:
         if hasattr(self, "_tile_server_task"):
             return
 
+        self._app: FastAPI | None = None
+        self._port: int | None = None
         self._tile_server_task: Task[None] | None = None
         self._tile_server_started = Event()
         self._tile_server_shutdown = Event()
@@ -53,6 +57,11 @@ class TiTilerServer:
 
     @property
     def routes(self) -> list[dict[str, Any]]:
+        if self._app is None:
+            raise RuntimeError(
+                f"Server not correctly initialized. {_incorrect_usage_message}"
+            )
+
         return [
             {"path": route.path, "name": route.name}
             for route in self._app.router.routes
@@ -130,8 +139,8 @@ class TiTilerServer:
 
             self._tile_server_url = binds[0]
 
-            host, _port = binds[0][len("http://") :].split(":")
-            self._port = int(_port)
+            host, port = binds[0][len("http://") :].split(":")
+            self._port = int(port)
             while True:
                 try:
                     await connect_tcp(host, self._port)
@@ -148,6 +157,11 @@ class TiTilerServer:
         data_array: DataArray,
         algorithm: BaseAlgorithm | None = None,
     ) -> None:
+        if self._app is None:
+            raise RuntimeError(
+                f"Server not correctly initialized. {_incorrect_usage_message}"
+            )
+
         algorithms = default_algorithms
         if algorithm is not None:
             algorithms = default_algorithms.register({"algorithm": algorithm})
