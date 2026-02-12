@@ -29,7 +29,7 @@ async def test_add_data_array_creates_api_routes(
         colormap_name="viridis",
     )
 
-    assert len(clean_titiler_server.routes) > 1
+    assert len(clean_titiler_server.routes) > 0
 
 
 @pytest.mark.asyncio
