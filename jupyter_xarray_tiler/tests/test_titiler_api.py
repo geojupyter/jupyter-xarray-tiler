@@ -3,7 +3,7 @@ import pytest
 from jupyter_xarray_tiler.titiler import _get_server, get_routes
 
 
-def test_raises_if_get_routes_before_server_started() -> None:
+def test_get_routes_raises_before_server_started() -> None:
     """Test that get_routes raises an error if called before initialization."""
     with pytest.raises(RuntimeError):
         get_routes()
