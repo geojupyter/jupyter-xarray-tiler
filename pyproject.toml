@@ -73,6 +73,7 @@ play = [
     "pystac-client",
     "dask",
     "jupyterlab_execute_time",
+    "rio-vrt>=0.3.1",
 ]
 
 [tool.hatch.version]
