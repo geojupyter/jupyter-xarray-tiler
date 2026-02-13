@@ -1632,6 +1632,7 @@ play = [
     { name = "mapclassify" },
     { name = "odc-stac" },
     { name = "pystac-client" },
+    { name = "rio-vrt" },
 ]
 test = [
     { name = "coverage" },
@@ -1673,6 +1674,7 @@ play = [
     { name = "mapclassify" },
     { name = "odc-stac" },
     { name = "pystac-client" },
+    { name = "rio-vrt", specifier = ">=0.3.1" },
 ]
 test = [
     { name = "coverage" },
@@ -3676,6 +3678,18 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/91/00/3d4ee47e63eb1848acd996cbc02e915adc78360206847b11d26531029c53/rio_tiler-8.0.5.tar.gz", hash = "sha256:c1ce2b9ef166620541c21fe3a0d911a2127354fa68c17131d73ae4e889522cd9", size = 180790, upload-time = "2026-01-05T13:15:10.484Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/2a/b1/8ea5458d63ef63565e6e7c38ef419c034f1ba8cdfd69fb0ae9c9c90195a1/rio_tiler-8.0.5-py3-none-any.whl", hash = "sha256:137c558c29be1e7312719d2d865ac74f4198afd02e655cdcba306069380d44c9", size = 276693, upload-time = "2026-01-05T13:15:08.793Z" },
+]
+
+[[package]]
+name = "rio-vrt"
+version = "0.3.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "rasterio" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/e1/0f/96dbfd66d10ac9c3d6f4d88994eae542f4463c1a43965ea0c9e97c1b0f22/rio_vrt-0.3.1.tar.gz", hash = "sha256:e6dd8d483b748b0b800ebd1109c9d5be121185833aa4c061e7cbeda41c23ad40", size = 7317, upload-time = "2024-08-19T21:51:01.604Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/f5/74/a24d00f38b8dfea19911b741801f5b88bfb5201c9e7ca47d46e84f869128/rio_vrt-0.3.1-py3-none-any.whl", hash = "sha256:c4273baa756341364e2cff2815e8730761f2989728a6871e14de07d6fb9107dc", size = 5733, upload-time = "2024-08-19T21:50:59.235Z" },
 ]
 
 [[package]]
