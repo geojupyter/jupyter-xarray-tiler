@@ -84,7 +84,7 @@ html_context = {
     "github_user": "geojupyter",
     "github_repo": "jupyter-xarray-tiler",
     "github_version": "main",
-    "doc_path": "docs/source",
+    "doc_path": "docs",
 }
 
 # -- Autodoc Options ---------------------------------------------------------
