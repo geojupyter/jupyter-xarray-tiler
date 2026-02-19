@@ -71,7 +71,8 @@ play = [
     "mapclassify",
     "odc-stac",
     "pystac-client",
-    "dask",
+    "dask[array]",
+    "netCDF4",
     "jupyterlab_execute_time",
     "rio-vrt>=0.3.1",
 ]
