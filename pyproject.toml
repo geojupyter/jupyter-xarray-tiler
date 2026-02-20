@@ -67,12 +67,16 @@ docs = [
 # Dependencies for playing with the extension with real data, e.g. test
 # notebooks in the `examples` directory:
 play = [
+    "requests",
+    "tqdm",
     "leafmap",
     "mapclassify",
     "odc-stac",
     "pystac-client",
-    "dask",
+    "dask[array]",
+    "netCDF4",
     "jupyterlab_execute_time",
+    "rio-vrt>=0.3.1",
 ]
 
 [tool.hatch.version]
