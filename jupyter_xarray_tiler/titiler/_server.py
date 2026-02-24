@@ -16,11 +16,9 @@ from titiler.core.errors import DEFAULT_STATUS_CODES, add_exception_handlers
 from titiler.core.factory import TilerFactory
 from xarray import DataArray
 
-_not_initialized_message = "Server not correctly initialized."
-_found_bug_message = (
-    "If you're seeing this, assuming you're not accessing a private object,"
-    " you've found a bug."
-    " Please open an issue on GitHub!"
+from jupyter_xarray_tiler.constants._messages import (
+    _found_bug_message,
+    _not_initialized_message,
 )
 
 
