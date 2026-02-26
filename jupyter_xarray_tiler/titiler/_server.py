@@ -1,13 +1,6 @@
 import uuid
-from asyncio import Event, Lock, Task, create_task
-from functools import partial
-from typing import Any
-from urllib.parse import urlencode
 
-from anycorn import Config, serve
-from anyio import connect_tcp, create_task_group
 from fastapi import FastAPI
-from fastapi.routing import APIRoute
 from rio_tiler.io.xarray import XarrayReader
 from titiler.core.algorithm import algorithms as default_algorithms
 from titiler.core.algorithm.base import BaseAlgorithm
@@ -16,49 +9,29 @@ from titiler.core.errors import DEFAULT_STATUS_CODES, add_exception_handlers
 from titiler.core.factory import TilerFactory
 from xarray import DataArray
 
+from jupyter_xarray_tiler._base_server import _FastApiTileServer
 from jupyter_xarray_tiler.constants._messages import (
     _found_bug_message,
     _not_initialized_message,
 )
 
 
-class TiTilerServer:
-    """A class to manage a TiTiler FastAPI server instance.
+class TiTilerServer(_FastApiTileServer):
+    """Manage a TiTiler FastAPI server instance.
 
     In practice, there should only ever be a single instance of this class.
     But this class is not a singleton: the public API handles this under the hood via a
     private function which holds a single instance in its cache.
     """
 
-    def __init__(self) -> None:
-        self._app: FastAPI | None = None
-        self._port: int | None = None
-        self._tile_server_task: Task[None] | None = None
-        self._tile_server_started = Event()
-        self._tile_server_shutdown = Event()
-        self._tile_server_lock = Lock()
-
-    @property
-    def routes(self) -> list[dict[str, Any]]:
-        if self._app is None:
-            raise RuntimeError(
-                _not_initialized_message
-                + " If you're seeing this message, you're 'holding it wrong'."
-                " Please see the docs!"
-            )
-
-        return [
-            {"path": route.path, "name": route.name}
-            for route in self._app.router.routes
-            if isinstance(route, APIRoute)
-        ]
-
-    async def start_tile_server(self) -> None:
-        async with self._tile_server_lock:
-            if self._tile_server_started.is_set():
-                return
-            self._tile_server_task = create_task(self._start_tile_server())
-            await self._tile_server_started.wait()
+    def _init_fastapi_app(self) -> FastAPI:
+        app = FastAPI(
+            openapi_url="/",
+            docs_url=None,
+            redoc_url=None,
+        )
+        add_exception_handlers(app, DEFAULT_STATUS_CODES)
+        return app
 
     async def add_data_array(
         self,
@@ -87,59 +60,18 @@ class TiTilerServer:
             _params["algorithm"] = "algorithm"
 
         source_id = str(uuid.uuid4())
-        self._include_tile_server_router(
+        self._add_data_array_route(
             source_id=source_id,
             data_array=data_array,
             algorithm=algorithm,
         )
 
-        return (
-            f"/proxy/{self._port}/{source_id}/tiles/WebMercatorQuad/"
-            "{z}/{x}/{y}.png?" + urlencode(_params)
+        return self._dataset_url(
+            data_array_id=source_id,
+            query_params=_params,
         )
 
-    async def stop_tile_server(self) -> None:
-        async with self._tile_server_lock:
-            if self._tile_server_started.is_set():
-                self._tile_server_shutdown.set()
-
-    async def _start_tile_server(self) -> None:
-        self._app = FastAPI(
-            openapi_url="/",
-            docs_url=None,
-            redoc_url=None,
-        )
-        add_exception_handlers(self._app, DEFAULT_STATUS_CODES)
-
-        config = Config()
-        config.bind = "127.0.0.1:0"
-
-        async with create_task_group() as tg:
-            binds = await tg.start(
-                partial(
-                    serve,
-                    self._app,  # type: ignore[arg-type]
-                    config,
-                    shutdown_trigger=self._tile_server_shutdown.wait,  # type: ignore[arg-type]
-                    mode="asgi",
-                ),
-            )
-
-            # Host will always be 127.0.0.1, port is randomized
-            host, _port = binds[0][len("http://") :].split(":")
-            self._port = int(_port)
-
-            # Poll until the TiTiler server is accepting connections
-            while True:
-                try:
-                    await connect_tcp(host, self._port)
-                except OSError:
-                    pass
-                else:
-                    self._tile_server_started.set()
-                    break
-
-    def _include_tile_server_router(
+    def _add_data_array_route(
         self,
         *,
         source_id: str,
