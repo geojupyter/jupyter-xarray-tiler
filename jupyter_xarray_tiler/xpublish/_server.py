@@ -1,8 +1,11 @@
 import uuid
 from urllib.parse import urlencode
 
+import xpublish
 from fastapi import FastAPI
-from xarray import DataArray
+from xarray import DataArray, Dataset
+from xpublish_tiles.xpublish.tiles.plugin import TilesPlugin
+from xpublish.utils.api import DATASET_ID_ATTR_KEY
 
 from jupyter_xarray_tiler._base_server import _FastApiTileServer
 from jupyter_xarray_tiler.constants._messages import (
@@ -19,7 +22,15 @@ class XpublishServer(_FastApiTileServer):
     private function which holds a single instance in its cache.
     """
 
-    def _init_fastapi_app(self) -> FastAPI: ...
+    def __init__(self) -> None:
+        super().__init__()
+        self._rest: xpublish.Rest | None = None
+
+    def _init_fastapi_app(self) -> FastAPI:
+        self._rest = xpublish.Rest(
+            plugins={"tiles": TilesPlugin()},
+        )
+        return self._rest.app
 
     async def add_data_array(
         self,
@@ -32,18 +43,19 @@ class XpublishServer(_FastApiTileServer):
         if self._port is None:
             raise RuntimeError(f"{_not_initialized_message} {_found_bug_message}")
 
-        _params = ...  # ?
-
+        # Create route on server for this data array
         source_id = str(uuid.uuid4())
         self._add_data_array_route(
             source_id=source_id,
             data_array=data_array,
-            algorithm=algorithm,
         )
 
+        # Construct URL
+        # TODO: CAll self._build_url() instead of hardcoding this
+        _params = ...  # ?
         return (
-            f"/proxy/{self._port}/{source_id}/.../"
-            "{z}/{x}/{y}.png?" + urlencode(_params)
+            f"/proxy/{self._port}/datasets/{source_id}/.../"
+            "{z}/{x}/{y}.png?"  # + urlencode(_params)
         )
 
     def _add_data_array_route(
@@ -56,11 +68,8 @@ class XpublishServer(_FastApiTileServer):
         if self._app is None:
             raise RuntimeError(f"{_not_initialized_message} {_found_bug_message}")
 
-        tiler = TilerFactory(
-            router_prefix=f"/{source_id}",
-            reader=XarrayReader,
-            path_dependency=lambda: data_array,
-            reader_dependency=DefaultDependency,
-            process_dependency=algorithms.dependency,
-        )
-        self._app.include_router(tiler.router, prefix=f"/{source_id}")
+        dataset: Dataset = data_array.to_dataset(name=data_array.name or "data")
+        dataset.assign_attrs({DATASET_ID_ATTR_KEY: source_id}, inplace=True)
+
+        # Add dataset to xpublish server
+        self._rest._datasets[source_id] = dataset

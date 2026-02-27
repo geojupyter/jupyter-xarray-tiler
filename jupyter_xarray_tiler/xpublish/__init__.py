@@ -27,7 +27,7 @@ async def add_data_array(
     Returns:
         A URL pointing to the new tile endpoint.
     """
-    return await _get_server().add_data_array(data_array, ...)
+    return await _get_server().add_data_array(data_array)
 
 
 def get_routes() -> list[dict[str, Any]]:
