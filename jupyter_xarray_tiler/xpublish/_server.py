@@ -1,11 +1,10 @@
 import uuid
-from urllib.parse import urlencode
 
 import xpublish
 from fastapi import FastAPI
 from xarray import DataArray, Dataset
-from xpublish_tiles.xpublish.tiles.plugin import TilesPlugin
 from xpublish.utils.api import DATASET_ID_ATTR_KEY
+from xpublish_tiles.xpublish.tiles.plugin import TilesPlugin
 
 from jupyter_xarray_tiler._base_server import _FastApiTileServer
 from jupyter_xarray_tiler.constants._messages import (
