@@ -1,4 +1,4 @@
-from abc import abstractmethod
+from abc import ABC, abstractmethod
 from asyncio import Event, Lock, Task, create_task
 from functools import partial
 from typing import Any
@@ -17,7 +17,7 @@ from jupyter_xarray_tiler.constants._messages import (
 )
 
 
-class _FastApiTileServer:
+class _FastApiTileServer(ABC):
     """Abstract base class for FastAPI tile server implementation.
 
     Implements serving the FastAPI app asynchronously with anycorn.
