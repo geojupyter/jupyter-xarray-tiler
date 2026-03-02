@@ -49,6 +49,13 @@ class TiTilerServer(_FastApiTileServer):
         if self._port is None:
             raise RuntimeError(f"{_not_initialized_message} {_found_bug_message}")
 
+        source_id = str(uuid.uuid4())
+        self._add_data_array_route(
+            source_id=source_id,
+            data_array=data_array,
+            algorithm=algorithm,
+        )
+
         _params = {
             "scale": str(scale),
             "colormap_name": colormap_name,
@@ -59,13 +66,6 @@ class TiTilerServer(_FastApiTileServer):
             _params["rescale"] = f"{rescale[0]},{rescale[1]}"
         if algorithm is not None:
             _params["algorithm"] = "algorithm"
-
-        source_id = str(uuid.uuid4())
-        self._add_data_array_route(
-            source_id=source_id,
-            data_array=data_array,
-            algorithm=algorithm,
-        )
 
         return (
             f"{self._base_url}/{source_id}/tiles/WebMercatorQuad"
