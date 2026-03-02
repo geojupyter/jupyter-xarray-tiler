@@ -6,6 +6,7 @@
 
 install
 quickstart
+backends
 reference/index
 ```
 
