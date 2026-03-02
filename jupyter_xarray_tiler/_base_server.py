@@ -2,7 +2,6 @@ from abc import ABC, abstractmethod
 from asyncio import Event, Lock, Task, create_task
 from functools import partial
 from typing import Any
-from urllib.parse import urlencode
 
 from anycorn import Config, serve
 from anyio import connect_tcp, create_task_group
@@ -123,18 +122,10 @@ class _FastApiTileServer(ABC):
         **kwargs: Any,  # noqa: ANN401
     ) -> None: ...
 
-    def _dataset_url(
-        self,
-        *,
-        data_array_id: str,
-        query_params: dict[str, Any],
-    ) -> str:
-        """Helper to build tile URL with proxy prefix."""
-
+    @property
+    def _base_url(self) -> str:
+        """The URL to the root path of this tiler server instance."""
         if self._port is None:
             raise RuntimeError(f"{_not_initialized_message} {_found_bug_message}")
 
-        return (
-            f"/proxy/{self._port}/{data_array_id}/tiles/WebMercatorQuad/"
-            "{z}/{x}/{y}.png?" + urlencode(query_params)
-        )
+        return f"/proxy/{self._port}"

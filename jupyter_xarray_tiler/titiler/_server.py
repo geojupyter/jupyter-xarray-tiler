@@ -1,4 +1,5 @@
 import uuid
+from urllib.parse import urlencode
 
 from fastapi import FastAPI
 from rio_tiler.io.xarray import XarrayReader
@@ -66,9 +67,10 @@ class TiTilerServer(_FastApiTileServer):
             algorithm=algorithm,
         )
 
-        return self._dataset_url(
-            data_array_id=source_id,
-            query_params=_params,
+        return (
+            f"{self._base_url}/{source_id}/tiles/WebMercatorQuad"
+            "/{z}/{x}/{y}.png"
+            f"?{urlencode(_params)}"
         )
 
     def _add_data_array_route(
