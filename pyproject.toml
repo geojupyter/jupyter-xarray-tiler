@@ -102,11 +102,12 @@ strict = true
 
 [[tool.mypy.overrides]]
 module = [
-    "rioxarray.*",
     "anycorn.*",
-    "rio_tiler.*",
-    "titiler.*",
     "geopandas.*",
+    "rio_tiler.*",
+    "rioxarray.*",
+    "titiler.*",
+    "xpublish.*",
 ]
 ignore_missing_imports = true
 
