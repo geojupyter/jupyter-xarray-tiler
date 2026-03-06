@@ -7,7 +7,6 @@ from anycorn import Config, serve
 from anyio import connect_tcp, create_task_group
 from fastapi import FastAPI
 from fastapi.routing import APIRoute
-from titiler.core.algorithm.base import BaseAlgorithm
 from xarray import DataArray
 
 from jupyter_xarray_tiler.constants._messages import (
@@ -59,11 +58,8 @@ class _FastApiTileServer(ABC):
         self,
         data_array: DataArray,
         *,
-        colormap_name: str = "viridis",
         rescale: tuple[float, float] | None = None,
-        scale: int = 1,
-        algorithm: BaseAlgorithm | None = None,
-        **kwargs: str | int,
+        **kwargs: Any,  # noqa: ANN401
     ) -> str:
         """Add a data array to the tile server and return a URL template.
 

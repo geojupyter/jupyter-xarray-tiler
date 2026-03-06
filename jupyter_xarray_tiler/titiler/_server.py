@@ -73,7 +73,7 @@ class TiTilerServer(_FastApiTileServer):
             f"?{urlencode(_params)}"
         )
 
-    def _add_data_array_route(
+    def _add_data_array_route(  # type: ignore[override]
         self,
         *,
         source_id: str,

@@ -72,13 +72,13 @@ class XpublishServer(_FastApiTileServer):
             f"?{urlencode(_params)}"
         )
 
-    def _add_data_array_route(
+    def _add_data_array_route(  # type: ignore[override]
         self,
         *,
         source_id: str,
         data_array: DataArray,
     ) -> None:
-        if self._app or self._rest is None:
+        if self._app is None or self._rest is None:
             raise RuntimeError(f"{_not_initialized_message} {_found_bug_message}")
 
         dataset: Dataset = data_array.to_dataset(name=data_array.name or "data")
