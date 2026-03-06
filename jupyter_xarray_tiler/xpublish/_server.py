@@ -78,7 +78,7 @@ class XpublishServer(_FastApiTileServer):
         source_id: str,
         data_array: DataArray,
     ) -> None:
-        if self._app is None:
+        if self._app or self._rest is None:
             raise RuntimeError(f"{_not_initialized_message} {_found_bug_message}")
 
         dataset: Dataset = data_array.to_dataset(name=data_array.name or "data")
