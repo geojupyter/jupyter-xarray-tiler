@@ -37,7 +37,7 @@ class XpublishServer(_FastApiTileServer):
         data_array: DataArray,
         *,
         rescale: tuple[float, float] | None = None,
-        **kwargs,
+        **kwargs: str | int,
     ) -> str:
         await self.start_tile_server()
 
