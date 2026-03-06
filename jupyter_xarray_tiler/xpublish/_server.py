@@ -30,7 +30,7 @@ class XpublishServer(_FastApiTileServer):
         self._rest = xpublish.Rest(
             plugins={"tiles": TilesPlugin()},
         )
-        return self._rest.app
+        return self._rest.app  # type: ignore[no-any-return]
 
     async def add_data_array(
         self,
