@@ -9,7 +9,9 @@ async def check_tile(*, url: str, transparent_ok: bool = False) -> None:
     async with httpx.AsyncClient() as client:
         resp = await client.get(url)
 
-    assert resp.status_code == 200, f"HTTP response code {resp.status_code}"  # noqa: PLR2004
+    assert resp.status_code == 200, (  # noqa: PLR2004
+        f"HTTP response code {resp.status_code}. Content: {resp.content}"
+    )
 
     if not transparent_ok:
         img = Image.open(BytesIO(resp.content))
