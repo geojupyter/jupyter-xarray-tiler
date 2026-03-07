@@ -3,6 +3,8 @@ from xarray import DataArray
 
 from jupyter_xarray_tiler.titiler._server import TiTilerServer
 
+from .helpers import check_tile, proxy_url_to_localhost_url
+
 
 @pytest.mark.asyncio
 async def test_server_is_not_singleton() -> None:
@@ -17,16 +19,29 @@ async def test_server_is_not_singleton() -> None:
 
 
 @pytest.mark.asyncio
-async def test_add_data_array_creates_api_routes(
+@pytest.mark.parametrize(
+    ("z", "y", "x"),
+    [
+        (4, 9, 4),
+        (1, 1, 1),
+        (8, 69, 169),
+    ],
+)
+async def test_add_data_array_works(
+    z: int,
+    y: int,
+    x: int,
     clean_titiler_server: TiTilerServer,
     mock_data_array: DataArray,
 ) -> None:
     """Test that FastAPI routes are created when a data array is added to the server."""
     assert len(clean_titiler_server.routes) == 0
 
-    await clean_titiler_server.add_data_array(data_array=mock_data_array)
+    proxy_url = await clean_titiler_server.add_data_array(data_array=mock_data_array)
 
     assert len(clean_titiler_server.routes) > 0
+
+    await check_tile(url=proxy_url_to_localhost_url(proxy_url).format(z=z, y=y, x=x))
 
 
 @pytest.mark.asyncio

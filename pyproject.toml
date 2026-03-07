@@ -53,6 +53,7 @@ dev = [
 test = [
     "coverage",
     "httpx>=0.28.1",
+    "pillow>=12.1.0",
     "pytest",
     "pytest-asyncio",
     "pytest-cov",
