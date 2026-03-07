@@ -28,7 +28,7 @@ def mock_data_array() -> xra.DataArray:
             "x": x_coords,
         },
     )
-    da = da.rio.write_crs("EPSG:4326")
+    da.rio.write_crs("EPSG:4326", inplace=True)
 
     # Calculate pixel size
     x_res = (max_x - min_x) / npixels_x
@@ -36,4 +36,5 @@ def mock_data_array() -> xra.DataArray:
 
     transform = Affine.translation(min_x, max_y) * Affine.scale(x_res, -y_res)
 
-    return da.rio.write_transform(transform)
+    da.rio.write_transform(transform, inplace=True)
+    return da
