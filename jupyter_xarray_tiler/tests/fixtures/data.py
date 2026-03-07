@@ -13,19 +13,19 @@ def mock_data_array() -> xra.DataArray:
     min_y = -90
     max_y = 90
 
-    y_coords = np.linspace(min_y, max_y, npixels_y)
-    x_coords = np.linspace(min_x, max_x, npixels_x)
+    y_coords = np.linspace(max_y, min_y, npixels_y, endpoint=False)
+    x_coords = np.linspace(min_x, max_x, npixels_x, endpoint=False)
     x_grid, y_grid = np.meshgrid(x_coords, y_coords)
 
-    data = ((x_grid - x_grid.min()) + (y_grid - y_grid.min())) / 2
+    data = ((x_grid - x_grid.min()) + (y_grid - y_grid.min())) / 2  # Diagonal gradient
     data = data / data.max()  # Normalize to 0-1
 
     da = xra.DataArray(
         data,
         dims=["y", "x"],
         coords={
-            "y": np.linspace(min_y, max_y, npixels_y),
-            "x": np.linspace(min_x, max_x, npixels_x),
+            "y": y_coords,
+            "x": x_coords,
         },
     )
     da = da.rio.write_crs("EPSG:4326")
@@ -34,8 +34,6 @@ def mock_data_array() -> xra.DataArray:
     x_res = (max_x - min_x) / npixels_x
     y_res = (max_y - min_y) / npixels_y
 
-    transform = Affine.translation(min_x - x_res / 2, max_y + y_res / 2) * Affine.scale(
-        x_res, -y_res
-    )
+    transform = Affine.translation(min_x, max_y) * Affine.scale(x_res, -y_res)
 
     return da.rio.write_transform(transform)
