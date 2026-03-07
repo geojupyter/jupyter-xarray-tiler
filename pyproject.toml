@@ -35,7 +35,6 @@ dependencies = [
     "anycorn",
     "rioxarray",
     "geopandas",
-    "httpx>=0.28.1",
     "titiler-core>=1.1.1",
     "titiler-xarray>=1.1.1",
     "xpublish-tiles>=0.4.2",
@@ -53,6 +52,7 @@ dev = [
 ]
 test = [
     "coverage",
+    "httpx>=0.28.1",
     "pytest",
     "pytest-asyncio",
     "pytest-cov",
