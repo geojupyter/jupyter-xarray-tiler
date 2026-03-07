@@ -108,7 +108,6 @@ module = [
     "anycorn.*",
     "geopandas.*",
     "rio_tiler.*",
-    "rioxarray.*",
     "titiler.*",
     "xpublish.*",
 ]
