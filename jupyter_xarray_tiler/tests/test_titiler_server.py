@@ -19,15 +19,12 @@ async def test_server_is_not_singleton() -> None:
 @pytest.mark.asyncio
 async def test_add_data_array_creates_api_routes(
     clean_titiler_server: TiTilerServer,
-    random_data_array: DataArray,
+    mock_data_array: DataArray,
 ) -> None:
     """Test that FastAPI routes are created when a data array is added to the server."""
     assert len(clean_titiler_server.routes) == 0
 
-    await clean_titiler_server.add_data_array(
-        data_array=random_data_array,
-        colormap_name="viridis",
-    )
+    await clean_titiler_server.add_data_array(data_array=mock_data_array)
 
     assert len(clean_titiler_server.routes) > 0
 
@@ -35,13 +32,10 @@ async def test_add_data_array_creates_api_routes(
 @pytest.mark.asyncio
 async def test_add_data_array_returns_valid_tile_url(
     clean_titiler_server: TiTilerServer,
-    random_data_array: DataArray,
+    mock_data_array: DataArray,
 ) -> None:
     """Test that adding a DataArray returns a properly formatted tile URL."""
-    tile_url = await clean_titiler_server.add_data_array(
-        data_array=random_data_array,
-        colormap_name="viridis",
-    )
+    tile_url = await clean_titiler_server.add_data_array(data_array=mock_data_array)
 
     assert tile_url is not None
     assert "/proxy/" in tile_url

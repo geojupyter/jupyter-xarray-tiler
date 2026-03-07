@@ -23,10 +23,7 @@ def test_get_routes_raises_before_server_started() -> None:
 
 @pytest.mark.usefixtures("clean_titiler_api")
 async def test_add_data_array_creates_routes(
-    random_data_array: DataArray,
+    mock_data_array: DataArray,
 ) -> None:
-    await add_data_array(
-        data_array=random_data_array,
-        colormap_name="viridis",
-    )
+    await add_data_array(data_array=mock_data_array)
     assert len(get_routes()) > 0
