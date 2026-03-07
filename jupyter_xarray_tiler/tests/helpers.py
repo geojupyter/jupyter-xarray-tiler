@@ -10,7 +10,7 @@ async def check_tile(*, url: str, transparent_ok: bool = False) -> None:
         resp = await client.get(url)
 
     assert resp.status_code == 200, (  # noqa: PLR2004
-        f"HTTP response code {resp.status_code}. Content: {resp.content}"
+        f"HTTP response code {resp.status_code}. Content: {resp.content!r}"
     )
 
     if not transparent_ok:
