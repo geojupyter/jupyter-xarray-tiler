@@ -20,6 +20,9 @@ class XpublishServer(_FastApiTileServer):
     In practice, there should only ever be a single instance of this class.
     But this class is not a singleton: the public API handles this under the hood via a
     private function which holds a single instance in its cache.
+
+    IMPORTANT: An xpublish server's routes are static, as opposed to TiTiler, which
+    creates routes every time a data array is added to the server.
     """
 
     def __init__(self) -> None:
