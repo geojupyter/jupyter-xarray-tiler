@@ -104,6 +104,7 @@ strict = true
 
 [[tool.mypy.overrides]]
 module = [
+    "affine",
     "anycorn.*",
     "geopandas.*",
     "rio_tiler.*",
