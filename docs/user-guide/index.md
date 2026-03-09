@@ -1,12 +1,12 @@
 # User Guide
 
 ```{toctree}
-:maxdepth: 1
+:maxdepth: 2
 :hidden:
 
 install
 quickstart
-backends
+about/index
 reference/index
 ```
 
