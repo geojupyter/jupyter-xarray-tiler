@@ -78,6 +78,7 @@ html_theme_options = {
     "use_edit_page_button": True,
     "show_prev_next": False,
     "navbar_end": ["theme-switcher", "navbar-icon-links"],
+    "show_nav_level": 2,
 }
 
 html_context = {

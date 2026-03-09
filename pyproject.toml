@@ -35,9 +35,9 @@ dependencies = [
     "anycorn",
     "rioxarray",
     "geopandas",
-    "httpx>=0.28.1",
     "titiler-core>=1.1.1",
     "titiler-xarray>=1.1.1",
+    "xpublish-tiles>=0.4.2",
 ]
 
 [project.urls]
@@ -52,6 +52,8 @@ dev = [
 ]
 test = [
     "coverage",
+    "httpx>=0.28.1",
+    "pillow>=12.1.0",
     "pytest",
     "pytest-asyncio",
     "pytest-cov",
@@ -73,6 +75,7 @@ play = [
     "pystac-client",
     "dask",
     "jupyterlab_execute_time",
+    "cartopy>=0.25.0",
 ]
 
 [tool.hatch.version]
@@ -101,11 +104,12 @@ strict = true
 
 [[tool.mypy.overrides]]
 module = [
-    "rioxarray.*",
+    "affine",
     "anycorn.*",
+    "geopandas.*",
     "rio_tiler.*",
     "titiler.*",
-    "geopandas.*",
+    "xpublish.*",
 ]
 ignore_missing_imports = true
 

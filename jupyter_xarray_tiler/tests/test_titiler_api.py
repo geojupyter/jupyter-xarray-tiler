@@ -7,6 +7,8 @@ from jupyter_xarray_tiler.titiler import (
     get_routes,
 )
 
+from .helpers import check_tile, proxy_url_to_localhost_url
+
 
 def test_singleton_ish() -> None:
     """Test that the API only uses one TiTiler server instance."""
@@ -22,11 +24,22 @@ def test_get_routes_raises_before_server_started() -> None:
 
 
 @pytest.mark.usefixtures("clean_titiler_api")
-async def test_add_data_array_creates_routes(
-    random_data_array: DataArray,
+@pytest.mark.parametrize(
+    ("z", "y", "x"),
+    [
+        (4, 9, 4),
+        (1, 1, 1),
+        (8, 69, 169),
+    ],
+)
+async def test_add_data_array_works(
+    z: int,
+    y: int,
+    x: int,
+    mock_data_array: DataArray,
 ) -> None:
-    await add_data_array(
-        data_array=random_data_array,
-        colormap_name="viridis",
-    )
+    proxy_url = await add_data_array(data_array=mock_data_array)
+
     assert len(get_routes()) > 0
+
+    await check_tile(url=proxy_url_to_localhost_url(proxy_url).format(z=z, y=y, x=x))
