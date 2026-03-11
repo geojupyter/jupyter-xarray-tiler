@@ -3,7 +3,8 @@ from xarray import DataArray
 
 from jupyter_xarray_tiler.xpublish._server import XpublishServer
 
-from .helpers import check_tile, proxy_url_to_localhost_url
+from .helpers import check_tile
+from .params import params_for_backend
 
 
 @pytest.mark.asyncio
@@ -20,26 +21,9 @@ async def test_server_is_not_singleton() -> None:
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize(
-    ("z", "y", "x"),
-    [
-        (4, 9, 4),
-        pytest.param(
-            1,
-            1,
-            1,
-            marks=pytest.mark.xfail(
-                reason="500. See <https://github.com/earth-mover/xpublish-tiles/issues/206#issuecomment-4015544811>"
-            ),
-        ),
-        pytest.param(
-            8,
-            69,
-            169,
-            marks=pytest.mark.xfail(
-                reason="Transparent. See <https://github.com/earth-mover/xpublish-tiles/issues/206#issuecomment-4015544811>"
-            ),
-        ),
-    ],
+    ("z", "y", "x", "mock_data_array"),
+    params_for_backend("xpublish"),
+    indirect=["mock_data_array"],
 )
 async def test_add_data_array_works(
     z: int,
@@ -54,7 +38,7 @@ async def test_add_data_array_works(
         rescale=(0, 1),
     )
 
-    await check_tile(url=proxy_url_to_localhost_url(proxy_url).format(z=z, y=y, x=x))
+    await check_tile(proxy_url=proxy_url.format(z=z, y=y, x=x))
 
 
 @pytest.mark.asyncio

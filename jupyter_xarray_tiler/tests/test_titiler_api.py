@@ -7,7 +7,8 @@ from jupyter_xarray_tiler.titiler import (
     get_routes,
 )
 
-from .helpers import check_tile, proxy_url_to_localhost_url
+from .helpers import check_tile
+from .params import params_for_backend
 
 
 def test_singleton_ish() -> None:
@@ -25,12 +26,9 @@ def test_get_routes_raises_before_server_started() -> None:
 
 @pytest.mark.usefixtures("clean_titiler_api")
 @pytest.mark.parametrize(
-    ("z", "y", "x"),
-    [
-        (4, 9, 4),
-        (1, 1, 1),
-        (8, 69, 169),
-    ],
+    ("z", "y", "x", "mock_data_array"),
+    params_for_backend("titiler"),
+    indirect=["mock_data_array"],
 )
 async def test_add_data_array_works(
     z: int,
@@ -42,4 +40,4 @@ async def test_add_data_array_works(
 
     assert len(get_routes()) > 0
 
-    await check_tile(url=proxy_url_to_localhost_url(proxy_url).format(z=z, y=y, x=x))
+    await check_tile(proxy_url=proxy_url.format(z=z, y=y, x=x))

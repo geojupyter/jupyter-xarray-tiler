@@ -3,7 +3,8 @@ from xarray import DataArray
 
 from jupyter_xarray_tiler.titiler._server import TiTilerServer
 
-from .helpers import check_tile, proxy_url_to_localhost_url
+from .helpers import check_tile
+from .params import params_for_backend
 
 
 @pytest.mark.asyncio
@@ -20,12 +21,9 @@ async def test_server_is_not_singleton() -> None:
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize(
-    ("z", "y", "x"),
-    [
-        (4, 9, 4),
-        (1, 1, 1),
-        (8, 69, 169),
-    ],
+    ("z", "y", "x", "mock_data_array"),
+    params_for_backend("titiler"),
+    indirect=["mock_data_array"],
 )
 async def test_add_data_array_works(
     z: int,
@@ -41,7 +39,7 @@ async def test_add_data_array_works(
 
     assert len(clean_titiler_server.routes) > 0
 
-    await check_tile(url=proxy_url_to_localhost_url(proxy_url).format(z=z, y=y, x=x))
+    await check_tile(proxy_url=proxy_url.format(z=z, y=y, x=x))
 
 
 @pytest.mark.asyncio
