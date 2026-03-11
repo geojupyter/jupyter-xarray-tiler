@@ -4,7 +4,7 @@ import xarray as xra
 
 
 @pytest.fixture
-def mock_data_array(request) -> xra.DataArray:
+def mock_data_array(request: pytest.FixtureRequest) -> xra.DataArray:
     if hasattr(request, "param"):
         # Expected to sometimes be passed in by indirect parameterization:
         y_dim, x_dim = request.param
