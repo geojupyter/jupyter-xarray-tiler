@@ -7,7 +7,7 @@ from jupyter_xarray_tiler.xpublish import (
     get_routes,
 )
 
-from .helpers import check_tile, proxy_url_to_localhost_url
+from .helpers import check_tile
 from .params import params_for_backend
 
 
@@ -39,4 +39,4 @@ async def test_add_data_array_works(
     """Test that tiles can be accessed after a data array is added to the server."""
     proxy_url = await add_data_array(data_array=mock_data_array, rescale=(0, 1))
 
-    await check_tile(url=proxy_url_to_localhost_url(proxy_url).format(z=z, y=y, x=x))
+    await check_tile(proxy_url=proxy_url.format(z=z, y=y, x=x))

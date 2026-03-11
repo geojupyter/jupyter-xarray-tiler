@@ -7,7 +7,9 @@ from PIL import Image
 from .exceptions import TileIsTransparentError, TileRequestReturnCodeNot200Error
 
 
-async def check_tile(*, url: str, transparent_ok: bool = False) -> None:
+async def check_tile(*, proxy_url: str, transparent_ok: bool = False) -> None:
+    url = _proxy_url_to_localhost_url(proxy_url)
+
     async with httpx.AsyncClient() as client:
         resp = await client.get(url)
 
@@ -23,5 +25,5 @@ async def check_tile(*, url: str, transparent_ok: bool = False) -> None:
             raise TileIsTransparentError
 
 
-def proxy_url_to_localhost_url(proxy_url: str) -> str:
+def _proxy_url_to_localhost_url(proxy_url: str) -> str:
     return f"http://localhost:{proxy_url.removeprefix('/proxy/')}"
