@@ -1,4 +1,8 @@
-class TileIsTransparentError(Exception):
+class BaseTestError(Exception):
+    reason: str
+
+
+class TileIsTransparentError(BaseTestError):
     """A tile served during testing is fully transparent."""
 
     reason = (
@@ -7,7 +11,7 @@ class TileIsTransparentError(Exception):
     )
 
 
-class TileRequestReturnCodeNot200Error(Exception):
+class TileRequestReturnCodeNot200Error(BaseTestError):
     """A request for a tile during testing returned a non-200 response code."""
 
     reason = (

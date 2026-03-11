@@ -7,7 +7,11 @@ from typing import Literal
 import pytest
 from _pytest.mark.structures import ParameterSet
 
-from .exceptions import TileIsTransparentError, TileRequestReturnCodeNot200Error
+from .exceptions import (
+    BaseTestError,
+    TileIsTransparentError,
+    TileRequestReturnCodeNot200Error,
+)
 
 type Backend = Literal["xpublish", "titiler"]
 
@@ -24,7 +28,7 @@ COORD_NAME_SCHEMES = {  # TODO: Make these Enums for better typing
 }
 
 # Mapping of coordinate tile and coordinate scheme to expected result (Exception / pass)
-type Expectations = dict[tuple[str, str], type[Exception] | None]
+type Expectations = dict[tuple[str, str], type[BaseTestError] | None]
 
 # IMPORTANT: Xpublish and TiTiler both work with `latitude`/`longitude` coordinate
 # names. Otherwise, their behavior is inconsistent.
