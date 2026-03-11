@@ -1,11 +1,17 @@
 import numpy as np
 import pytest
 import xarray as xra
-from affine import Affine
 
 
 @pytest.fixture
-def mock_data_array() -> xra.DataArray:
+def mock_data_array(request) -> xra.DataArray:
+    if hasattr(request, "param"):
+        # Expected to sometimes be passed in by indirect parameterization:
+        y_dim, x_dim = request.param
+    else:
+        # Otherwise default to "happy path" values
+        y_dim, x_dim = ("latitude", "longitude")
+
     npixels_y = 100
     npixels_x = 100
     min_x = -180
@@ -27,15 +33,11 @@ def mock_data_array() -> xra.DataArray:
 
     da = xra.DataArray(
         data,
-        dims=["y", "x"],
+        dims=[y_dim, x_dim],
         coords={
-            "y": y_coords,
-            "x": x_coords,
+            y_dim: y_coords,
+            x_dim: x_coords,
         },
     )
     da.rio.write_crs("EPSG:4326", inplace=True)
-
-    transform = Affine.translation(min_x, max_y) * Affine.scale(x_res, -y_res)
-
-    da.rio.write_transform(transform, inplace=True)
     return da
