@@ -1,29 +1,29 @@
-name: Check links
+name: "Check links"
 
 on:
   push:
-    branches: main
+    branches: "main"
   pull_request:
-    branches: '*'
+    branches: "*"
+
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  group: "${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}"
   cancel-in-progress: true
-
 
 jobs:
   check_links:
-    name: Check Links
-    runs-on: ubuntu-latest
+    name: "Check Links"
+    runs-on: "ubuntu-latest"
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
+      - uses: "actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5" # v4
         with:
           persist-credentials: false
 
-      - uses: jupyterlab/maintainer-tools/.github/actions/base-setup@7bebe19dab1c58587eb734aca9184d8e59fdf911  # v1
+      - uses: "jupyterlab/maintainer-tools/.github/actions/base-setup@7bebe19dab1c58587eb734aca9184d8e59fdf911" # v1
 
-      - uses: jupyterlab/maintainer-tools/.github/actions/check-links@7bebe19dab1c58587eb734aca9184d8e59fdf911  # v1
+      - uses: "jupyterlab/maintainer-tools/.github/actions/check-links@7bebe19dab1c58587eb734aca9184d8e59fdf911" # v1
         with:
           # Allow absolute links; any broken links will get caught in the docs build
           ignore_links: >-
