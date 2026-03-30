@@ -1,32 +1,30 @@
-name: Typecheck
+name: "Typecheck"
 
 on:
   push:
-    branches: main
+    branches: "main"
   pull_request:
-    branches: '*'
+    branches: "*"
+
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  group: "${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}"
   cancel-in-progress: true
 
 jobs:
   mypy:
-    runs-on: ubuntu-latest
-
+    runs-on: "ubuntu-latest"
     steps:
-    - name: Checkout
-      uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
-      with:
-        persist-credentials: false
+      - name: "Checkout"
+        uses: "actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5" # v4
+        with:
+          persist-credentials: false
 
-    - name: Install the latest version of uv
-      uses: astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78  # v7
+      - name: "Install the latest version of uv"
+        uses: "astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78" # v7
 
-    - name: Install dependencies
-      run: |
-        uv sync --group test
+      - name: "Install dependencies"
+        run: "uv sync --group test"
 
-    - name: Run mypy
-      run: |
-        uv run mypy
+      - name: "Run mypy"
+        run: "uv run mypy"
