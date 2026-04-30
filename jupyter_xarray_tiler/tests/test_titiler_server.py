@@ -60,6 +60,8 @@ class TestTiTilerServer:
         assert "colormap_name=viridis" in tile_url
         assert "scale=1" in tile_url
 
+
+class TestTiTilerServerRestart:
     @pytest.mark.asyncio
     async def test_server_started_event_is_cleared_after_stop(
         self,

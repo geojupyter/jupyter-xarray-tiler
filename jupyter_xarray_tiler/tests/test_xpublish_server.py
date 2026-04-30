@@ -57,6 +57,8 @@ class TestXpublishServer:
         assert f"/{clean_xpublish_server._port}/" in tile_url
         assert "/tiles/WebMercatorQuad/{z}/{y}/{x}" in tile_url
 
+
+class TestXpublishServerRestart:
     @pytest.mark.asyncio
     async def test_server_started_event_is_cleared_after_stop(
         self,
