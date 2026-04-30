@@ -59,3 +59,17 @@ class TestTiTilerServer:
         assert "/tiles/WebMercatorQuad/{z}/{x}/{y}.png" in tile_url
         assert "colormap_name=viridis" in tile_url
         assert "scale=1" in tile_url
+
+    @pytest.mark.asyncio
+    async def test_server_started_event_is_cleared_after_stop(
+        self,
+        clean_titiler_server: TiTilerServer,
+    ) -> None:
+        """Test that _tile_server_started is cleared so the server can be restarted."""
+        assert clean_titiler_server._tile_server_started.is_set()
+
+        await clean_titiler_server.stop_tile_server()
+        if clean_titiler_server._tile_server_task:
+            await clean_titiler_server._tile_server_task
+
+        assert not clean_titiler_server._tile_server_started.is_set()
