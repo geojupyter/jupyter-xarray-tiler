@@ -104,6 +104,13 @@ class _FastApiTileServer(ABC):
                     self._tile_server_started.set()
                     break
 
+        # Reset state on exiting task group (i.e. shutdown)
+        async with self._tile_server_lock:
+            self._tile_server_started.clear()
+            self._tile_server_shutdown.clear()
+            self._port = None
+            self._app = None
+
     @abstractmethod
     def _init_fastapi_app(self) -> FastAPI:
         """Initialize a FastAPI object to populate self._app."""
