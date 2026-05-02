@@ -4,7 +4,7 @@ import httpx
 import numpy as np
 from PIL import Image
 
-from .exceptions import TileIsTransparentError, TileRequestReturnCodeNot200Error
+from .exceptions import TileIsTransparentError, TileRequestFailedError
 
 
 async def check_tile(*, proxy_url: str, transparent_ok: bool = False) -> None:
@@ -14,7 +14,10 @@ async def check_tile(*, proxy_url: str, transparent_ok: bool = False) -> None:
         resp = await client.get(url)
 
     if resp.status_code != 200:  # noqa: PLR2004
-        raise TileRequestReturnCodeNot200Error
+        raise TileRequestFailedError(
+            status=resp.status_code,
+            text=resp.text,
+        )
 
     if not transparent_ok:
         img = Image.open(BytesIO(resp.content))
