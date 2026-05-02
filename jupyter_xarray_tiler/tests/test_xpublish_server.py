@@ -73,3 +73,45 @@ class TestXpublishServerRestart:
 
         assert not clean_xpublish_server._tile_server_started.is_set()
 
+    @pytest.mark.asyncio
+    async def test_server_binds_to_new_port_after_restart(
+        self,
+        clean_xpublish_server: XpublishServer,
+    ) -> None:
+        """Test restarted server binds to a fresh port."""
+        port_before_restart = clean_xpublish_server._port
+
+        await clean_xpublish_server.stop_tile_server()
+        if clean_xpublish_server._tile_server_task:
+            await clean_xpublish_server._tile_server_task
+
+        await clean_xpublish_server.start_tile_server()
+
+        assert clean_xpublish_server._tile_server_started.is_set()
+        assert clean_xpublish_server._port != port_before_restart
+
+    @pytest.mark.asyncio
+    @pytest.mark.parametrize(
+        ("z", "y", "x", "mock_data_array"),
+        params_for_backend("xpublish"),
+        indirect=["mock_data_array"],
+    )
+    async def test_add_data_array_serves_tiles_after_restart(
+        self,
+        z: int,
+        y: int,
+        x: int,
+        clean_xpublish_server: XpublishServer,
+        mock_data_array: DataArray,
+    ) -> None:
+        """Test that tiles are accessible from a layer added after a restart."""
+        await clean_xpublish_server.stop_tile_server()
+        if clean_xpublish_server._tile_server_task:
+            await clean_xpublish_server._tile_server_task
+
+        proxy_url = await clean_xpublish_server.add_data_array(
+            data_array=mock_data_array,
+            rescale=(0, 1),
+        )
+
+        await check_tile(proxy_url=proxy_url.format(z=z, y=y, x=x))
