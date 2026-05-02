@@ -28,3 +28,4 @@ jobs:
           # Allow absolute links; any broken links will get caught in the docs build
           ignore_links: >-
             ^/.*
+            https://www\.leafmap\.org.*
