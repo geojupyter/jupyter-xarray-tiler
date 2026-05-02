@@ -10,7 +10,7 @@ from _pytest.mark.structures import ParameterSet
 from .exceptions import (
     BaseTestError,
     TileIsTransparentError,
-    TileRequestReturnCodeNot200Error,
+    TileRequestFailedError,
 )
 
 type Backend = Literal["xpublish", "titiler"]
@@ -41,23 +41,23 @@ EXPECTATIONS: dict[Backend, Expectations] = {
     "xpublish": {
         ("farzoom", "latitude/longitude"): None,
         ("farzoom", "lat/lon"): None,
-        ("farzoom", "y/x"): TileRequestReturnCodeNot200Error,
+        ("farzoom", "y/x"): TileRequestFailedError,
         ("midzoom", "latitude/longitude"): None,
         ("midzoom", "lat/lon"): None,
-        ("midzoom", "y/x"): TileRequestReturnCodeNot200Error,
+        ("midzoom", "y/x"): TileRequestFailedError,
         ("closezoom", "latitude/longitude"): TileIsTransparentError,
         ("closezoom", "lat/lon"): TileIsTransparentError,
-        ("closezoom", "y/x"): TileRequestReturnCodeNot200Error,
+        ("closezoom", "y/x"): TileRequestFailedError,
     },
     "titiler": {
         ("farzoom", "latitude/longitude"): None,
-        ("farzoom", "lat/lon"): TileRequestReturnCodeNot200Error,
+        ("farzoom", "lat/lon"): TileRequestFailedError,
         ("farzoom", "y/x"): None,
         ("midzoom", "latitude/longitude"): None,
-        ("midzoom", "lat/lon"): TileRequestReturnCodeNot200Error,
+        ("midzoom", "lat/lon"): TileRequestFailedError,
         ("midzoom", "y/x"): None,
         ("closezoom", "latitude/longitude"): None,
-        ("closezoom", "lat/lon"): TileRequestReturnCodeNot200Error,
+        ("closezoom", "lat/lon"): TileRequestFailedError,
         ("closezoom", "y/x"): None,
     },
 }
